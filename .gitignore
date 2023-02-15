@@ -1,0 +1,7 @@
+*/*/.idea
+*/*/venv
+*/*/.env
+*/*/.env.production
+*/*/dist
+*/*/node_modules
+*/*/volumes

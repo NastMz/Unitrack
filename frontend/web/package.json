@@ -1,0 +1,38 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "backendBus": "json-server --watch src/api/json/busStops.json --port 8080",
+    "backendRoute": "json-server --watch src/api/json/routes.json --port 8081",
+    "backendRouteProgram": "json-server --watch src/api/json/routesProgramming.json --port 8082"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.0",
+    "@tanstack/react-query": "^4.22.4",
+    "@tanstack/react-query-devtools": "^4.22.4",
+    "axios": "^1.2.1",
+    "framer-motion": "^9.0.2",
+    "leaflet": "^1.9.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.6.0",
+    "react-leaflet": "^4.2.0",
+    "react-redux": "^8.0.5"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.0",
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "@vitejs/plugin-react": "^2.2.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.6",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.0"
+  }
+}

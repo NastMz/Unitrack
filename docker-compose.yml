@@ -1,0 +1,105 @@
+version: '3'
+
+services:
+  timetable:
+    build: ./backend/timetable-service
+    container_name: timetable-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8000:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+  
+  stop-timetable:
+      build: ./backend/stop-timetable-service
+      container_name: stop-timetable-service
+      restart: always
+      environment:
+        DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      ports:
+        - "8001:8000"
+      healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+          interval: 20s
+          timeout: 10s
+          retries: 10
+      depends_on:
+        db:
+          condition: service_healthy
+      networks:
+      - unitrack-network
+
+  stop:
+    build: ./backend/stop-service
+    container_name: stop-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8002:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  web:
+    build: ./frontend/web
+    container_name: web-app
+    restart: always
+    environment:
+      VITE_API_STOP_URL: http://stop:8000
+      VITE_API_TIMETABLE_URL: http://timetable-service:8000
+      VITE_API_STOP_TIMETABLE_URL: http://stop-timetable:8000
+    ports:
+      - "80:80"
+    depends_on:
+        stop:
+            condition: service_healthy
+        timetable:
+            condition: service_healthy
+        stop-timetable:
+            condition: service_healthy
+    networks:
+      - unitrack-network
+
+  db:
+    image: postgres:latest
+    restart: always
+    container_name: unitrack-db
+    hostname: myhost
+    environment:
+      POSTGRES_DB: unitrackdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ./backend/db/volumes:/var/lib/postgresql/data
+      - ./backend/db/CREATE_DB.sql:/docker-entrypoint-initdb.d/CREATE_DB.sql
+      - ./backend/db/INSERT_DB.sql:/docker-entrypoint-initdb.d/INSERT_DB.sql
+    ports:
+      - "9091:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin", "-d", "unitrackdb", "-h", "localhost", "-p", "5432"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+    networks:
+      - unitrack-network
+
+networks:
+  unitrack-network:
