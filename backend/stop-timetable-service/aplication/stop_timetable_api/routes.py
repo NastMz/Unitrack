@@ -4,7 +4,7 @@ from . import stop_timetable_api_blueprint
 from ..models import StopTimetable
 
 
-@stop_timetable_api_blueprint.route('/api/stop-timetable/<int:timetable_id>', methods=['GET'])
+@stop_timetable_api_blueprint.route('/stop-timetable/stops/<int:timetable_id>', methods=['GET'])
 def stops_ids(timetable_id):
     stops = [row.to_json() for row in StopTimetable.query.filter_by(timetable_id=timetable_id).all()]
 

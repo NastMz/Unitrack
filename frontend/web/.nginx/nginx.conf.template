@@ -7,15 +7,15 @@ server {
         try_files $uri $uri/ /index.html;
     }
 
-    location /api/timetables {
+    location /timetable {
         proxy_pass $VITE_API_TIMETABLE_URL;
     }
 
-    location /api/stop-timetable {
+    location /stop-timetable {
         proxy_pass $VITE_API_STOP_TIMETABLE_URL;
     }
 
-    location /api/stop {
+    location /stop {
         proxy_pass $VITE_API_STOP_URL;
     }
 

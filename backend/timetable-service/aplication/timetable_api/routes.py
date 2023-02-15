@@ -4,7 +4,7 @@ from . import timetable_api_blueprint
 from ..models import Timetable
 
 
-@timetable_api_blueprint.route('/api/timetables', methods=['GET'])
+@timetable_api_blueprint.route('/timetable/list', methods=['GET'])
 def timetables():
     timetables_list = []
     for row in Timetable.query.all():

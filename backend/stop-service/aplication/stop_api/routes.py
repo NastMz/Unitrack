@@ -4,7 +4,7 @@ from . import stop_api_blueprint
 from ..models import Stop
 
 
-@stop_api_blueprint.route('/api/stops', methods=['POST'])
+@stop_api_blueprint.route('/stop/list', methods=['POST'])
 def stops():
     id_stops = request.json['stops']
     print(id_stops)

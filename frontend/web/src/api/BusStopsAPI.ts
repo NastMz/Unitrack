@@ -10,6 +10,6 @@ const busStopsAPI = axios.create({
  * @returns {Promise<BusStop[]>} - Array of bus stops.
  */
 export const getBusStops = async (StopIds: Array<number>) => {
-    const response = await busStopsAPI.post('/api/stops', {stops: StopIds});
+    const response = await busStopsAPI.post('/stop/list', {stops: StopIds});
     return response.data.stops;
 }

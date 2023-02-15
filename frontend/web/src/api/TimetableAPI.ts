@@ -9,6 +9,6 @@ const timetableAPI = axios.create({
  * @returns {Promise<Timetable[]>} List of timetables.
  */
 export const getTimetables = async () => {
-    const response = await timetableAPI.get('/api/timetables');
+    const response = await timetableAPI.get('/timetable/list');
     return response.data.timetables;
 }

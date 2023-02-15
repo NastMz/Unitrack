@@ -10,6 +10,6 @@ const stopTimetableAPI = axios.create({
  * @returns {Promise<BusStop[]>} - Promise that resolves to an array of bus stops.
  */
 export const getStopsByTimetable = async (timetableId: number) => {
-    const response = await stopTimetableAPI.get(`/api/stop-timetable/${timetableId}`);
+    const response = await stopTimetableAPI.get(`/stop-timetable/stops/${timetableId}`);
     return response.data.stops;
 }
