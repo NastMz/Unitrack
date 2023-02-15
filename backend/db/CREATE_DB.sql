@@ -1,7 +1,12 @@
 ------CREATE TABLES-----
-CREATE TABLE bus(
+CREATE TABLE "user"(
     id SERIAL NOT NULL,
-    PRIMARY KEY (id)
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (username)
 );
 
 CREATE TABLE stop(
@@ -17,15 +22,8 @@ CREATE TABLE stop(
 CREATE TABLE timetable(
     id serial NOT NULL,
     hour time NOT NULL,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE bus_stop(
-    stop_id SERIAL NOT NULL,
-    bus_id SERIAL NOT NULL,
-    PRIMARY KEY (stop_id, bus_id),
-    CONSTRAINT bus_stop_fk FOREIGN KEY (bus_id) REFERENCES bus(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT stop_bus_fk FOREIGN KEY (stop_id) REFERENCES stop(id) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY (id),
+    UNIQUE (hour)
 );
 
 CREATE TABLE stop_timetable(

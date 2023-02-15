@@ -1,5 +1,9 @@
 -- Llenado Base de datos
 
+--Usuario admin
+INSERT INTO "user"(first_name, last_name, username, password) VALUES('Gilberto', 'Salazar', 'don_gilberto', 'ecf0d233873b258b72306d94a06bda7b641875e70ece19d34908f3e40ca82f78');
+
+-- Paraderos
 INSERT INTO stop (name, description, latitude, longitude, image) VALUES    ('Afueras bloque apartamentos','En la esquina a la entrada de la Madrid etapa 3',4.0593938,-73.6700653, 'https://res.cloudinary.com/dynfsoflz/image/upload/v1676308878/Porfia/pPorf1_pul4kf.png'),
                                                                         ('Supermercado Marketing','Supermercado Marketing',4.064833,-73.671318, 'https://res.cloudinary.com/dynfsoflz/image/upload/v1676308882/Porfia/pPorf2_xervoe.png'),
                                                                         ('Salida los Chopos','Frente a la ferretería Las Palmas, diagonal a los Chopos',4.073257, -73.669342, 'https://res.cloudinary.com/dynfsoflz/image/upload/v1676308880/Porfia/pPorf3_xx0la2.png'),
