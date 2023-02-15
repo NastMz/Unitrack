@@ -4,7 +4,7 @@ from . import db
 class Timetable(db.Model):
     __tablename__ = "timetable"
     id = db.Column(db.Integer, primary_key=True)
-    hour = db.Column(db.Time, unique=False, nullable=False)
+    hour = db.Column(db.Time, unique=True, nullable=False)
 
     def to_json(self):
         return {
