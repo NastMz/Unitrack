@@ -11,7 +11,7 @@ Este proyecto consiste de un backend en Flask que utiliza microservicios para br
 - [Iniciando los proyectos](#iniciando-los-proyectos)
     - [Ejecución individual](#ejecución-individual)
         - [Ejecución del backend](#ejecución-del-backend)
-        - [Ejecución del fontend](#ejecución-del-frontend)
+        - [Ejecución del frontend](#ejecución-del-frontend)
     - [Ejecución con docker compose](#ejecución-con-docker-compose)
 
 
@@ -32,7 +32,7 @@ Este servicio permite a los usuarios ver la información completa de una lista d
 
 ## Iniciando los Proyectos
 
-Para iniciar los proyectos en este repositorio, deberá tener `Python` y `Node` instalados en su máquina si desea [ejecutarlos manualmente](#ejecución-individual) o puede usar el archivo `docker-compose.yml` incluido y [ejecutarlo directamente](#ejecución-con-docker-compose) sin neceseidad de instalar nada.
+Para iniciar los proyectos en este repositorio, deberá tener `Python` y `Node` instalados en su máquina si desea [ejecutarlos manualmente](#ejecución-individual) o puede usar el archivo `docker-compose.yml` incluido y [ejecutarlo directamente](#ejecución-con-docker-compose) sin necesidad de instalar nada.
 
 ### Ejecución individual
 

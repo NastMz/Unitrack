@@ -1,16 +1,32 @@
 import {motion} from "framer-motion";
+import {Table} from "../common";
 
 export const TimetablePage = () => {
-    return (
-        <motion.div
-            initial={{width: 0}}
-            animate={{width: '100%'}}
-            exit={{width: window.innerWidth, transition: {duration: 0.3}}}
-            className={'h-full w-full border-4 border-gray-200 rounded-xl border-dashed'}
-        >
-            <div >
 
-            </div>
-        </motion.div>
+    const data = [
+        {
+            id: 1,
+            hour: "07:00:00",
+        },
+        {
+            id: 2,
+            hour: "07:30:00",
+        },
+        {
+            id: 3,
+            hour: "08:00:00",
+        },
+        {
+            id: 4,
+            hour: "08:30:00",
+        }
+    ]
+
+    return (
+        <div
+            className={'h-full w-full'}
+        >
+            <Table headers={['Id', 'Hora']} data={data}/>
+        </div>
     )
 }

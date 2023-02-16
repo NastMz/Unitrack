@@ -1,0 +1,23 @@
+server {
+    listen 80;
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /timetable {
+        proxy_pass $VITE_API_TIMETABLE_URL;
+    }
+
+    location /stop-timetable {
+        proxy_pass $VITE_API_STOP_TIMETABLE_URL;
+    }
+
+    location /stop {
+        proxy_pass $VITE_API_STOP_URL;
+    }
+
+    include /etc/nginx/extra-conf.d/*.conf;
+}

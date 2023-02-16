@@ -1,5 +1,4 @@
-import * as Client from './client';
-import * as Data from './data';
-import * as Request from './request';
-
-export {Client, Data, Request};
+export {getUsers} from './UserReadAPI';
+export {addUser} from './UserCreateAPI';
+export {updateUser} from './UserUpdateAPI';
+export {deleteUser} from './UserDeleteAPI';

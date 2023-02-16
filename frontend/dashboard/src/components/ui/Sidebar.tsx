@@ -13,7 +13,6 @@ const routesArray = () => {
     for (const [key, value] of Object.entries(routes)) {
         array.push(value);
     }
-    console.log(array);
     return array;
 }
 
@@ -21,7 +20,7 @@ const routesArray = () => {
  * Sidebar component props.
  *
  * @interface SidebarProps
- * @param {string} className - The class name for the component.
+ * @param {string} className - The class firstName for the component.
  */
 interface SidebarProps {
     className?: string
@@ -44,7 +43,7 @@ export const Sidebar = (props: SidebarProps) => {
             <Link to={routes.home.path} className={'text-3xl font-bold p-8 flex gap-2 items-center'}>
                 <FaMapMarkedAlt className={'text-main-600'}/> UniTrack
             </Link>
-            <div className={'flex-grow px-2 w-full overflow-y-scroll gap-1'}>
+            <div className={'flex-grow px-2 w-full overflow-y-scroll flex flex-col gap-1'}>
                 {
                     routesArray().map((route) => (
                         <SidebarCard to={route.path}

@@ -26,11 +26,11 @@ export const NotFound = () => {
                 </div>
                 <div className={"flex flex-col gap-6"}>
                     <div className={"flex flex-col gap-1"}>
-                        <span className={"text-red-600 text-sm font-medium"}>404</span>
+                        <span className={"text-main-600 text-sm font-medium"}>404</span>
                         <h1 className={"text-3xl font-bold"}>Página no encontrada</h1>
-                        <span className={"text-sm text-gray-400"}>Lo sentimos, no pudimos encontrar la página que estas buscando</span>
+                        <span className={"text-sm text-slate-400"}>Lo sentimos, no pudimos encontrar la página que estas buscando</span>
                     </div>
-                    <Link to={"/"} className={"font-medium text-sm text-red-600 flex justify-center items-center"}>
+                    <Link to={"/"} className={"font-medium text-sm text-main-600 flex justify-center items-center"}>
                         <span>Regresar al inicio</span> <BsArrowRightShort size={20} className={""}/>
                     </Link>
                 </div>

@@ -1,16 +1,44 @@
 import {motion} from "framer-motion";
+import {Table} from "../common";
 
+/**
+ * StopPage component.
+ *
+ * This component is used to render the stops crud page.
+ *
+ * @returns {JSX.Element} - The component.
+ */
 export const StopPage = () => {
-    return (
-        <motion.div
-            initial={{width: 0}}
-            animate={{width: '100%'}}
-            exit={{width: window.innerWidth, transition: {duration: 0.3}}}
-            className={'h-full w-full border-4 border-gray-200 rounded-xl border-dashed'}
-        >
-            <div >
 
-            </div>
-        </motion.div>
+    const data = [
+        {
+            id: 1,
+            name: 'Maracos',
+            description: 'Parada de Maracos',
+            latitude: 10.123456,
+            longitude: -10.123456,
+        },
+        {
+            id: 2,
+            name: 'Maracos',
+            description: 'Parada de Maracos',
+            latitude: 10.123456,
+            longitude: -10.123456,
+        },
+        {
+            id: 3,
+            name: 'Maracos',
+            description: 'Parada de Maracos',
+            latitude: 10.123456,
+            longitude: -10.123456,
+        }
+    ]
+
+    return (
+        <div
+            className={'h-full w-full'}
+        >
+            <Table headers={['Id', 'Paradero', 'Descripción', 'Latitud', 'Longitud']} data={data} />
+        </div>
     )
 }
