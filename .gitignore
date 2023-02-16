@@ -1,7 +1,12 @@
-*/*/.idea
+*/venv
 */*/venv
 */*/.env
+*/*/*/.env
+*/*/*/*/.env
 */*/.env.production
+*/*/volumes
+*/*/.idea
 */*/dist
 */*/node_modules
-*/*/volumes
+/backend/admin-services/user-services/user-create-service/.env
+/.idea
