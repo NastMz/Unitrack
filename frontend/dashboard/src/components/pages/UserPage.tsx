@@ -1,11 +1,11 @@
-import {Table, LoaderModal, Modal} from "../common";
+import {LoaderModal, Modal, Table} from "../common";
 import {useState} from "react";
-import {UserForm} from "../ui/UserForm";
+import {UserForm} from "../ui";
 import {User} from "../../models/interfaces";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {deleteUser, getUsers} from "../../api";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {deleteUser} from "../../api";
 import {useDispatch, useSelector} from "react-redux";
-import {addUser, removeUser} from "../../redux/actions";
+import {removeUser} from "../../redux/actions";
 import {selectUsers} from "../../redux/selectors";
 
 /**
@@ -31,7 +31,7 @@ export const UserPage = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     // User state
-    const [user, setUser] = useState<User>({id: 0, firstName: '', lastName: '', username: ''});
+    const [user, setUser] = useState<User | null>(null);
 
     // User form modal state.
     const [formIsOpen, setFormIsOpen] = useState(false);
@@ -71,12 +71,18 @@ export const UserPage = () => {
             className={'h-full w-full'}
         >
             <Table
-                headers={['Id', 'Nombre', 'Apellido', 'Usuario']}
+                headersMap={{
+                    id: 'ID',
+                    firstName: 'Nombre',
+                    lastName: 'Apellido',
+                    username: 'Usuario',
+                }}
                 data={users}
                 setContext={setContext}
                 setShowForm={setFormIsOpen}
                 setSelectedRecord={setUser}
                 deleteRecord={(user: User) => handleDeleteUser(user)}
+                itemsPerPage={5}
             />
 
             <UserForm
@@ -92,7 +98,7 @@ export const UserPage = () => {
             />
 
             {/* Loader modal */}
-            <LoaderModal isOpen={loading} message={'Cargando, por favor espere...'}/>
+            <LoaderModal isOpen={loading} message={'Procesando, por favor espere...'}/>
 
             {/* Success alert */}
             <Modal

@@ -42,7 +42,7 @@ const backgroundVariants = {
  * @property {(value: string) => void} setErrorMessage - The function to set the error message.
  */
 interface UserFormProps {
-    user: User;
+    user: User | null;
     isOpen: boolean;
     onClose: () => void;
     setLoading: (value: boolean) => void;
@@ -148,7 +148,7 @@ export const UserForm: React.FC<UserFormProps> = ({
         // Submit form
         onSubmit: async (values) => {
             setLoading(true);
-            if (context === 'edit') {
+            if (context === 'edit' && user) {
                 const updatedUser: UpdateUser = {
                     firstName: values.name,
                     lastName: values.lastName,
@@ -173,7 +173,7 @@ export const UserForm: React.FC<UserFormProps> = ({
     });
 
     useEffect(() => {
-        if (context === 'edit') {
+        if (context === 'edit' && user) {
             formik.setValues({
                 name: user.firstName,
                 lastName: user.lastName,

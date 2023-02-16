@@ -1,5 +1,5 @@
 import axios from "axios";
-import {NewUser} from "../models/interfaces";
+import {NewUser} from "../../models/interfaces";
 
 const userCreateAPI = axios.create({
     baseURL: import.meta.env.VITE_API_USER_CREATE_URL,
