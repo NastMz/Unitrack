@@ -2,7 +2,7 @@ version: '3'
 
 services:
   timetable:
-    build: ./backend/timetable-service
+    build: ./backend/client-services/timetable-service
     container_name: timetable-service
     restart: always
     environment:
@@ -21,7 +21,7 @@ services:
       - unitrack-network
   
   stop-timetable:
-      build: ./backend/stop-timetable-service
+      build: ./backend/client-services/stop-timetable-service
       container_name: stop-timetable-service
       restart: always
       environment:
@@ -40,13 +40,241 @@ services:
       - unitrack-network
 
   stop:
-    build: ./backend/stop-service
+    build: ./backend/client-services/stop-service
     container_name: stop-service
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
     ports:
       - "8002:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  user-create:
+    build: ./backend/admin-services/user-services/user-create-service
+    container_name: user-create-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8003:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  user-read:
+    build: ./backend/admin-services/user-services/user-read-service
+    container_name: user-read-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8004:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  user-update:
+    build: ./backend/admin-services/user-services/user-update-service
+    container_name: user-update-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8005:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  user-delete:
+    build: ./backend/admin-services/user-services/user-delete-service
+    container_name: user-delete-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8006:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  login:
+    build: ./backend/auth-services/login-service
+    container_name: login-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8007:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  timetable-create:
+    build: ./backend/timetable-services/timetable-create-service
+    container_name: timetable-create-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8008:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  timetable-update:
+    build: ./backend/timetable-services/timetable-update-service
+    container_name: timetable-update-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8009:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  timetable-delete:
+    build: ./backend/timetable-services/timetable-delete-service
+    container_name: timetable-delete-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8010:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  stop-create:
+    build: ./backend/stop-services/stop-create-service
+    container_name: stop-create-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8011:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  stop-read:
+    build: ./backend/stop-services/stop-read-service
+    container_name: stop-read-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8012:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  stop-update:
+    build: ./backend/stop-services/stop-update-service
+    container_name: stop-update-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8013:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  stop-delete:
+    build: ./backend/stop-services/stop-delete-service
+    container_name: stop-delete-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+    ports:
+      - "8014:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
