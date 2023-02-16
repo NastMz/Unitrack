@@ -28,21 +28,21 @@ export const Main = (props: MainProps) => {
     document.title = props.title;
 
     return (
-        <div className={"h-screen max-h-screen flex"}>
-            <Sidebar className={''}/>
+        <div className={"h-screen max-h-screen w-screen max-w-screen flex"}>
+            <Sidebar className={'w-fit'}/>
             <AnimatePresence mode={"wait"}>
-                <div className={'w-full'}>
+                <div className={'w-full h-full overflow-hidden'}>
                     <motion.main
                         initial={{width: 0}}
                         animate={{width: '100%'}}
                         exit={{width: window.innerWidth, transition: {duration: 0.3}}}
                         key={props.pageName}
-                        className={'flex flex-col px-12 py-8 flex-grow'}
+                        className={'flex flex-col px-12 py-8 w-full h-full overflow-hidden'}
                     >
                         <h2 className={'font-bold text-3xl flex-shrink mb-4'}>{props.pageName}</h2>
                         <p className={'mb-8'}>{props.description}</p>
                         <div
-                            className={'flex items-center justify-center flex-grow rounded-xl'}
+                            className={'flex items-center justify-center rounded-xl h-full overflow-hidden'}
                         >
                             {props.page}
                         </div>

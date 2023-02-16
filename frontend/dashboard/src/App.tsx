@@ -6,9 +6,9 @@ import {Dashboard, NotFound, StopPage, TimetablePage} from "./components/pages";
 import {routes} from "./config/routes";
 import {UserPage} from "./components/pages/UserPage";
 import {useQuery} from "@tanstack/react-query";
-import {getUsers} from "./api";
-import {User} from "./models/interfaces";
-import {addUser} from "./redux/actions";
+import {getStops, getTimetables, getUsers} from "./api";
+import {Stop, Timetable, User} from "./models/interfaces";
+import {addStop, addTimetable, addUser} from "./redux/actions";
 import {useDispatch} from "react-redux";
 
 function App() {
@@ -19,9 +19,29 @@ function App() {
         queryKey: ['apiUsers'],
         queryFn: getUsers,
         onSuccess: (response) => {
-                response.data.users.forEach((user: User) => {
-                    dispatch(addUser(user));
-                });
+            response.data.users.forEach((user: User) => {
+                dispatch(addUser(user));
+            });
+        }
+    });
+
+    useQuery({
+        queryKey: ['apiTimetables'],
+        queryFn: getTimetables,
+        onSuccess: (response) => {
+            response.data.timetables.forEach((timetable: Timetable) => {
+                dispatch(addTimetable(timetable));
+            });
+        }
+    });
+
+    useQuery({
+        queryKey: ['apiStops'],
+        queryFn: getStops,
+        onSuccess: (response) => {
+            response.data.stops.forEach((stop: Stop) => {
+                dispatch(addStop(stop));
+            });
         }
     })
 

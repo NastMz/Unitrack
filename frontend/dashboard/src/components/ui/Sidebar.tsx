@@ -39,11 +39,11 @@ export const Sidebar = (props: SidebarProps) => {
     const location = useLocation();
 
     return (
-        <aside className={`w-64 h-full flex flex-col border-r border-gray-200 ${props.className}`}>
+        <aside className={`h-full flex flex-col border-r border-gray-200 ${props.className}`}>
             <Link to={routes.home.path} className={'text-3xl font-bold p-8 flex gap-2 items-center'}>
                 <FaMapMarkedAlt className={'text-main-600'}/> UniTrack
             </Link>
-            <div className={'flex-grow px-2 w-full overflow-y-scroll flex flex-col gap-1'}>
+            <div className={'flex-grow px-2 w-full overflow-y-auto flex flex-col gap-1'}>
                 {
                     routesArray().map((route) => (
                         <SidebarCard to={route.path}
