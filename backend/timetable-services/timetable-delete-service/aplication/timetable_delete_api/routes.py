@@ -1,10 +1,12 @@
-from flask import jsonify, request
+from flask import jsonify
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import timetable_delete_api_blueprint
 from ..models import Timetable
 
 
 @timetable_delete_api_blueprint.route('/timetable/delete/<int:id>', methods=['DELETE'])
+@jwt_required()
 def timetable_delete(id):
     timetable = Timetable.query.get(id)
     if timetable is None:

@@ -1,10 +1,12 @@
 from flask import jsonify
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import stop_read_api_blueprint
 from ..models import Stop, StopTimetable, Timetable
 
 
 @stop_read_api_blueprint.route('/stop/list', methods=['GET'])
+@jwt_required()
 def stop_list():
     query = db.session.query(Stop, Timetable).select_from(Stop).join(StopTimetable).join(Timetable)
     results = query.all()

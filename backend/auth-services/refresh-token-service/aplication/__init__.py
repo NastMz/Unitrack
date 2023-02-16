@@ -2,8 +2,8 @@ import config
 import os
 from datetime import timedelta
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
@@ -25,6 +25,6 @@ def create_app():
 
     with app.app_context():
         # Definir la API con blueprints
-        from aplication.timetable_create_api import timetable_create_api_blueprint
-        app.register_blueprint(timetable_create_api_blueprint)
+        from aplication.refresh_token_api import refresh_token_api_blueprint
+        app.register_blueprint(refresh_token_api_blueprint)
         return app
