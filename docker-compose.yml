@@ -58,14 +58,57 @@ services:
     networks:
       - unitrack-network
 
+  login:
+    build: ./backend/auth-services/login-service
+    container_name: login-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+
+    ports:
+      - "8003:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
+  refresh-token:
+    build: ./backend/auth-services/refresh-token-service
+    container_name: refresh-token-service
+    restart: always
+    environment:
+      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+
+    ports:
+      - "8004:8000"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+        interval: 20s
+        timeout: 10s
+        retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - unitrack-network
+
   user-create:
     build: ./backend/admin-services/user-services/user-create-service
     container_name: user-create-service
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8003:8000"
+      - "8005:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -83,8 +126,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8004:8000"
+      - "8006:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -102,8 +146,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8005:8000"
+      - "8007:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -121,27 +166,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8006:8000"
-    healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
-        interval: 20s
-        timeout: 10s
-        retries: 10
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - unitrack-network
-
-  login:
-    build: ./backend/auth-services/login-service
-    container_name: login-service
-    restart: always
-    environment:
-      DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
-    ports:
-      - "8007:8000"
+      - "8008:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -159,8 +186,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8008:8000"
+      - "8009:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -178,8 +206,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8009:8000"
+      - "8010:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -197,8 +226,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8010:8000"
+      - "8011:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -216,8 +246,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8011:8000"
+      - "8012:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -235,8 +266,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8012:8000"
+      - "8013:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -254,8 +286,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8013:8000"
+      - "8014:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s
@@ -273,8 +306,9 @@ services:
     restart: always
     environment:
       DATABASE_URI: postgresql://admin:admin@db:5432/unitrackdb
+      JWT_SECRET_KEY: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
     ports:
-      - "8014:8000"
+      - "8015:8000"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
         interval: 20s

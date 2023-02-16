@@ -1,10 +1,12 @@
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import stop_update_api_blueprint
 from ..models import Stop, StopTimetable, Timetable
 
 
 @stop_update_api_blueprint.route('/stop/update/<int:id>', methods=['PUT'])
+@jwt_required()
 def stop_update(id):
     stop = Stop.query.get(id)
 

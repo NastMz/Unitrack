@@ -1,10 +1,12 @@
-from flask import jsonify, request
+from flask import jsonify
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import stop_delete_api_blueprint
 from ..models import Stop
 
 
 @stop_delete_api_blueprint.route('/stop/delete/<int:id>', methods=['DELETE'])
+@jwt_required()
 def stop_delete(id):
     stop = Stop.query.get(id)
 

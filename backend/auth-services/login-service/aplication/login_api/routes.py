@@ -1,5 +1,6 @@
 import hashlib
 from flask import jsonify, request
+from flask_jwt_extended import create_access_token, create_refresh_token
 from . import login_api_blueprint
 from ..models import User
 
@@ -26,7 +27,11 @@ def login():
         response.status_code = 401
         return response
     
-    response = jsonify({'message': 'Autenticación exitosa.'})
+    access_token = create_access_token(identity=username)
+    refresh_token = create_refresh_token(identity=username)
+
+    response = jsonify({'access_token': access_token,
+                        'refresh_token': refresh_token})
     response.status_code = 200
     return response
 

@@ -1,10 +1,12 @@
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import timetable_update_api_blueprint
 from ..models import Timetable
 
 
 @timetable_update_api_blueprint.route('/timetable/update/<int:id>', methods=['PUT'])
+@jwt_required()
 def timetable_update(id):
     timetable = Timetable.query.get(id)
 

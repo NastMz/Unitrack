@@ -1,10 +1,12 @@
 from flask import jsonify
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import user_delete_api_blueprint
 from ..models import User
 
 
 @user_delete_api_blueprint.route('/user/delete/<int:id>', methods=['DELETE'])
+@jwt_required()
 def user_delete(id):
     user = User.query.get(id)
     if user is None:

@@ -1,10 +1,12 @@
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import timetable_create_api_blueprint
 from ..models import Timetable
 
 
 @timetable_create_api_blueprint.route('/timetable/add', methods=['POST'])
+@jwt_required()
 def timetable_add():
     if 'hour' not in request.json:
         response = jsonify({'message': 'La hora es requerida para crear el horario.'})

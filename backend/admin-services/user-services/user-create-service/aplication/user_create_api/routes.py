@@ -1,11 +1,13 @@
 import hashlib
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import user_create_api_blueprint
 from ..models import User
 
 
 @user_create_api_blueprint.route('/user/add', methods=['POST'])
+@jwt_required()
 def user_add():
     if 'firstName' not in request.json or 'lastName' not in request.json or 'username' not in request.json or 'password' not in request.json:
         response = jsonify({'message': 'Todos los campos son requeridos para crear al usuario.'})

@@ -1,10 +1,12 @@
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import stop_create_api_blueprint
 from ..models import Stop, StopTimetable, Timetable
 
 
 @stop_create_api_blueprint.route('/stop/add', methods=['POST'])
+@jwt_required()
 def stop_add():
     if 'name' not in request.json or 'description' not in request.json or 'image' not in request.json or 'latitude' not in request.json or 'longitude' not in request.json or 'timetableIds' not in request.json:
         response = jsonify({'message': 'Todos los campos son requeridos para crear el paradero.'})

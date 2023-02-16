@@ -1,11 +1,13 @@
 import hashlib
 from flask import jsonify, request
+from flask_jwt_extended import jwt_required
 from .. import db
 from . import user_update_api_blueprint
 from ..models import User
 
 
 @user_update_api_blueprint.route('/user/update/<int:id>', methods=['PUT'])
+@jwt_required()
 def user_update(id):
     user = User.query.get(id)
     
