@@ -1,6 +1,6 @@
 -- Llenado Base de datos
 
---Usuario admin
+--Usuarios admin
 INSERT INTO "user"(first_name, last_name, username, password) VALUES('Gilberto', 'Salazar', 'don_gilberto', 'ecf0d233873b258b72306d94a06bda7b641875e70ece19d34908f3e40ca82f78');
 INSERT INTO "user"(first_name, last_name, username, password) VALUES('Kevin', 'Mateo', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918');
 
