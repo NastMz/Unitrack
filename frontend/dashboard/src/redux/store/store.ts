@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {stopSlice, timetableSlice, userSlice} from "../reducers";
+import {loggedUserSlice, stopSlice, timetableSlice, userSlice} from "../reducers";
 
 /**
  * Store object for the Redux store.
@@ -15,5 +15,6 @@ export const store = configureStore({
         users: userSlice.reducer,
         timetables: timetableSlice.reducer,
         stops: stopSlice.reducer,
+        loggedUser: loggedUserSlice.reducer
     },
 });

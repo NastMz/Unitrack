@@ -1,5 +1,6 @@
 import axios from "axios";
 import {NewUser} from "../../models/interfaces";
+import {logout, validateSession} from "../AuthAPI";
 
 const userCreateAPI = axios.create({
     baseURL: import.meta.env.VITE_API_USER_CREATE_URL,
@@ -13,5 +14,20 @@ const userCreateAPI = axios.create({
  * @returns {Promise<string>} - The message of the response.
  */
 export const addUser = async (user: NewUser) => {
-    return await userCreateAPI.post('/user/add', user);
+
+    if (!validateSession()) {
+        logout();
+    }
+
+    let accessToken = sessionStorage.getItem("access_token")!;
+
+    try {
+        return await userCreateAPI.post('/user/add', user, {
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            }
+        });
+    } catch (e: any) {
+        return e.response;
+    }
 }

@@ -1,4 +1,4 @@
-import { userSlice } from "../reducers";
+import {userSlice} from "../reducers";
 
 /**
  * Exported actions for the user slice of the Redux store.

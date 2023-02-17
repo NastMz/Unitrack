@@ -5,7 +5,7 @@ import {useState} from "react";
 import {Timetable} from "../../models/interfaces";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {deleteTimetable} from "../../api";
-import {removeTimetable} from "../../redux/actions";
+import {removeAllTimetables} from "../../redux/actions";
 import {TimetableForm} from "../ui";
 
 export const TimetablePage = () => {
@@ -44,18 +44,27 @@ export const TimetablePage = () => {
     const deleteTimetableMutate = useMutation({
         mutationFn: deleteTimetable,
         onSuccess: () => {
+            dispatch(removeAllTimetables());
             queryClient.invalidateQueries(['apiTimetables']);
+            setLoading(false);
             setShowSuccess(true);
-            setSuccessMessage('Usuario eliminado correctamente.');
+            setSuccessMessage('Horario eliminado correctamente.');
         },
-        onError: (error) => {
+        onError: (error: any) => {
+            setLoading(false);
             setShowError(true);
-            setErrorMessage('Ha ocurrido un error al eliminar el usuario.');
+            let errorMsg = error.response.data.message;
+
+            if (errorMsg) {
+                setErrorMessage(errorMsg);
+            } else {
+                setErrorMessage('Ha ocurrido un error inesperado.');
+            }
         }
     });
 
     const handleDeleteTimetable = (timetable: Timetable) => {
-        dispatch(removeTimetable(timetable.id));
+        setLoading(true);
         deleteTimetableMutate.mutate(timetable.id);
     }
 

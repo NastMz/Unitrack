@@ -1,4 +1,5 @@
 import axios from "axios";
+import {logout, validateSession} from "../AuthAPI";
 
 const stopCreateAPI = axios.create({
     baseURL: import.meta.env.VITE_API_STOP_DELETE_URL,
@@ -11,5 +12,20 @@ const stopCreateAPI = axios.create({
  * @returns {Promise<any>} - The response.
  */
 export const deleteStop = async (id: number) => {
-    return await stopCreateAPI.delete(`/stop/delete/${id}`);
+
+    if (!validateSession()) {
+        logout();
+    }
+
+    let accessToken = sessionStorage.getItem("access_token")!;
+
+    try {
+        return await stopCreateAPI.delete(`/stop/delete/${id}`, {
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            }
+        });
+    } catch (e: any) {
+        return e.response;
+    }
 }

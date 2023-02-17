@@ -31,5 +31,11 @@ export const routes = {
         description: 'Aquí puedes crear, editar, actualizar o borrar la información de los usuarios administradores.',
         icon: <AiOutlineUser/>
     },
-
+    login: {
+        path: '/login',
+        title: 'Iniciar sesión | Unitrack',
+        name: 'Iniciar sesión',
+        description: 'Inicia sesión para acceder al panel de administración de Unitrack.',
+        icon: <AiOutlineUser/>
+    }
 }

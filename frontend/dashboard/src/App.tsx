@@ -2,49 +2,12 @@ import './App.css'
 import {AnimatePresence} from "framer-motion";
 import {Route, Routes} from "react-router-dom";
 import {Main} from "./components/templates";
-import {Dashboard, NotFound, StopPage, TimetablePage} from "./components/pages";
+import {Dashboard, Login, NotFound, StopPage, TimetablePage} from "./components/pages";
 import {routes} from "./config/routes";
 import {UserPage} from "./components/pages/UserPage";
-import {useQuery} from "@tanstack/react-query";
-import {getStops, getTimetables, getUsers} from "./api";
-import {Stop, Timetable, User} from "./models/interfaces";
-import {addStop, addTimetable, addUser} from "./redux/actions";
-import {useDispatch} from "react-redux";
+import {ProtectedRoute} from "./components/utils";
 
 function App() {
-
-    const dispatch = useDispatch();
-
-    useQuery({
-        queryKey: ['apiUsers'],
-        queryFn: getUsers,
-        onSuccess: (response) => {
-            response.data.users.forEach((user: User) => {
-                dispatch(addUser(user));
-            });
-        }
-    });
-
-    useQuery({
-        queryKey: ['apiTimetables'],
-        queryFn: getTimetables,
-        onSuccess: (response) => {
-            response.data.timetables.forEach((timetable: Timetable) => {
-                dispatch(addTimetable(timetable));
-            });
-        }
-    });
-
-    useQuery({
-        queryKey: ['apiStops'],
-        queryFn: getStops,
-        onSuccess: (response) => {
-            response.data.stops.forEach((stop: Stop) => {
-                dispatch(addStop(stop));
-            });
-        }
-    })
-
     return (
         <div className={'max-h-screen max-w-screen overflow-hidden'}>
             <AnimatePresence>
@@ -54,47 +17,61 @@ function App() {
                         element={<NotFound/>}
                     />
                     <Route
+                        path={routes.login.path}
+                        element={
+                            <Login/>
+                        }
+                    />
+                    <Route
                         path={routes.home.path}
                         element={
-                            <Main
-                                page={<Dashboard/>}
-                                title={routes.home.title}
-                                description={routes.home.description}
-                                pageName={routes.home.name}
-                            />
+                            <ProtectedRoute>
+                                <Main
+                                    page={<Dashboard/>}
+                                    title={routes.home.title}
+                                    description={routes.home.description}
+                                    pageName={routes.home.name}
+                                />
+                            </ProtectedRoute>
                         }
                     />
                     <Route
                         path={routes.stop.path}
                         element={
-                            <Main
-                                page={<StopPage/>}
-                                title={routes.stop.title}
-                                description={routes.stop.description}
-                                pageName={routes.stop.name}
-                            />
+                            <ProtectedRoute>
+                                <Main
+                                    page={<StopPage/>}
+                                    title={routes.stop.title}
+                                    description={routes.stop.description}
+                                    pageName={routes.stop.name}
+                                />
+                            </ProtectedRoute>
                         }
                     />
                     <Route
                         path={routes.timetable.path}
                         element={
-                            <Main
-                                page={<TimetablePage/>}
-                                title={routes.timetable.title}
-                                description={routes.timetable.description}
-                                pageName={routes.timetable.name}
-                            />
+                            <ProtectedRoute>
+                                <Main
+                                    page={<TimetablePage/>}
+                                    title={routes.timetable.title}
+                                    description={routes.timetable.description}
+                                    pageName={routes.timetable.name}
+                                />
+                            </ProtectedRoute>
                         }
                     />
                     <Route
                         path={routes.user.path}
                         element={
-                            <Main
-                                page={<UserPage/>}
-                                title={routes.user.title}
-                                description={routes.user.description}
-                                pageName={routes.user.name}
-                            />
+                            <ProtectedRoute>
+                                <Main
+                                    page={<UserPage/>}
+                                    title={routes.user.title}
+                                    description={routes.user.description}
+                                    pageName={routes.user.name}
+                                />
+                            </ProtectedRoute>
                         }
                     />
                 </Routes>

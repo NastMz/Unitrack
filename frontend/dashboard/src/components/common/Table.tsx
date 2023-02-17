@@ -83,7 +83,7 @@ export const Table = ({
             </button>
             <div className={'w-full overflow-x-auto'}>
                 <table
-                    className="text-start table-fixed rounded-md border border-slate-200 shadow-md">
+                    className="min-w-full text-start table-fixed rounded-md border border-slate-200 shadow-md">
                     <colgroup>
                         {Object.keys(headersMap).map((key) => (
                             <col key={key} className="w-auto"/>

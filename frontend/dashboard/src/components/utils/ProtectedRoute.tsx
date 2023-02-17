@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from 'react-router-dom';
-import {Modal} from "../common";
+import React from "react";
+import {validateSession} from "../../api";
+import {Navigate} from "react-router-dom";
+import {routes} from "../../config/routes";
 
 /**
  * Interface for ProtectedRoute component props
@@ -16,51 +17,25 @@ interface ProtectedRouteProps {
  * ProtectedRoute component.
  *
  * This component displays its children elements within a protected route, checking for authentication before rendering.
- * If the user is not authenticated, it displays a login modal.
+ * If the user is not authenticated, it redirects to the login page.
  *
  * @param {ProtectedRouteProps} props - Properties for the ProtectedRoute component.
  * @returns {JSX.Element} A React element representing the ProtectedRoute component.
  */
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
-    // State to track whether the user is authenticated
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    // State to track whether the login modal is open
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const [errorMessage, setErrorMessage] = useState('');
-    const [type, setType] = useState<'error' | 'warning' | 'info' | 'success'>('error');
-
-    // Check for authentication when the component mounts
-    useEffect(() => {
-
-
-    }, []);
-
-    const navigate = useNavigate();
-
-    const handleErrorMessage = () => {
-        setErrorMessage('');
-        navigate('/login');
-    };
-
-    const handleCancelClick = () => {
-        setErrorMessage('');
-        navigate(-1);
-    };
-
-    return (
-        <>
-            {isModalOpen && (
-                <Modal
-                    title="Error"
-                    message={errorMessage || 'Mensaje normal'}
-                    buttonText="Iniciar Sesión"
-                    isOpen={!!errorMessage}
-                    onButtonClick={() => handleErrorMessage()}
-                    type={type}
-                />
-            )}
-            {isAuthenticated && children}
-        </>
-    );
+    // Check for authentication
+    if (validateSession()) {
+        return (
+            <>
+                {children}
+            </>
+        );
+    } else {
+        return (
+            <div className={'flex justify-center items-center w-full h-full p-36 font-bold'}>
+                No tienes permiso para acceder a esta página. Redirigiendo a la página de inicio de sesión...
+                <Navigate to={routes.login.path} replace={true}/>
+            </div>
+        );
+    }
 };

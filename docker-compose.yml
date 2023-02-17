@@ -340,6 +340,55 @@ services:
     networks:
       - unitrack-network
 
+  dashboard:
+    build: ./frontend/dashboard
+    container_name: dashboard-app
+    restart: always
+    environment:
+      VITE_API_USER_CREATE_URL: http://user-create:8000
+      VITE_API_USER_READ_URL: http://user-read:8000
+      VITE_API_USER_UPDATE_URL: http://user-update:8000
+      VITE_API_USER_DELETE_URL: http://user-delete:8000
+      VITE_API_STOP_CREATE_URL: http://stop-create:8000
+      VITE_API_STOP_READ_URL: http://stop-read:8000
+      VITE_API_STOP_UPDATE_URL: http://stop-update:8000
+      VITE_API_STOP_DELETE_URL: http://stop-delete:8000
+      VITE_API_TIMETABLE_CREATE_URL: http://timetable-create:8000
+      VITE_API_TIMETABLE_READ_URL: http://timetable:8000
+      VITE_API_TIMETABLE_UPDATE_URL: http://timetable-update:8000
+      VITE_API_TIMETABLE_DELETE_URL: http://timetable-delete:8000
+      VITE_API_LOGIN_URL: http://login:8000
+      VITE_API_REFRESH_TOKEN_URL: http://refresh-token:8000
+    ports:
+      - "8080:80"
+    depends_on:
+        user-create:
+            condition: service_healthy
+        user-read:
+            condition: service_healthy
+        user-update:
+            condition: service_healthy
+        user-delete:
+            condition: service_healthy
+        stop-create:
+            condition: service_healthy
+        stop-read:
+            condition: service_healthy
+        stop-update:
+            condition: service_healthy
+        stop-delete:
+            condition: service_healthy
+        timetable-create:
+            condition: service_healthy
+        timetable-update:
+            condition: service_healthy
+        timetable-delete:
+            condition: service_healthy
+        timetable:
+            condition: service_healthy
+    networks:
+      - unitrack-network
+
   db:
     image: postgres:latest
     restart: always

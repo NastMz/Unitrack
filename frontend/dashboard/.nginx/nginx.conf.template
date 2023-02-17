@@ -7,16 +7,60 @@ server {
         try_files $uri $uri/ /index.html;
     }
 
-    location /timetable {
-        proxy_pass $VITE_API_TIMETABLE_URL;
+    location /timetable/list {
+        proxy_pass $VITE_API_TIMETABLE_READ_URL;
     }
 
-    location /stop-timetable {
-        proxy_pass $VITE_API_STOP_TIMETABLE_URL;
+    location /timetable/add {
+        proxy_pass $VITE_API_TIMETABLE_CREATE_URL;
     }
 
-    location /stop {
-        proxy_pass $VITE_API_STOP_URL;
+    location /timetable/update {
+        proxy_pass $VITE_API_TIMETABLE_UPDATE_URL;
+    }
+
+    location /timetable/delete {
+        proxy_pass $VITE_API_TIMETABLE_DELETE_URL;
+    }
+
+    location /stop/list {
+        proxy_pass $VITE_API_STOP_READ_URL;
+    }
+
+    location /stop/add {
+        proxy_pass $VITE_API_STOP_CREATE_URL;
+    }
+
+    location /stop/update {
+        proxy_pass $VITE_API_STOP_UPDATE_URL;
+    }
+
+    location /stop/delete {
+        proxy_pass $VITE_API_STOP_DELETE_URL;
+    }
+
+    location /user/list {
+        proxy_pass $VITE_API_USER_READ_URL;
+    }
+
+    location /user/add {
+        proxy_pass $VITE_API_USER_CREATE_URL;
+    }
+
+    location /user/update {
+        proxy_pass $VITE_API_USER_UPDATE_URL;
+    }
+
+    location /user/delete {
+        proxy_pass $VITE_API_USER_DELETE_URL;
+    }
+
+    location /login {
+        proxy_pass $VITE_API_LOGIN_URL;
+    }
+
+    location /refresh-token {
+        proxy_pass $VITE_API_REFRESH_TOKEN_URL;
     }
 
     include /etc/nginx/extra-conf.d/*.conf;

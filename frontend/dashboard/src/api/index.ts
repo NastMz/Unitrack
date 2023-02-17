@@ -10,3 +10,4 @@ export {getStops} from './StopAPI/StopReadAPI';
 export {addStop} from './StopAPI/StopCreateAPI';
 export {updateStop} from './StopAPI/StopUpdateAPI';
 export {deleteStop} from './StopAPI/StopDeleteAPI';
+export {login, logout, validateSession, isTokenExpired} from './AuthAPI';

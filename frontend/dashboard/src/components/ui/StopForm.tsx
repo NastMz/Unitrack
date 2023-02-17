@@ -102,10 +102,16 @@ export const StopForm: React.FC<StopFormProps> = ({
                 setLoading(false)
             });
         },
-        onError: (error) => {
-            setErrorMessage('Ocurrio un error inesperado');
-            setShowError(true);
+        onError: (error: any) => {
             setLoading(false);
+            setShowError(true);
+            let errorMsg = error.response.data.message;
+
+            if (errorMsg) {
+                setErrorMessage(errorMsg);
+            } else {
+                setErrorMessage('Ha ocurrido un error inesperado.');
+            }
         }
     });
 

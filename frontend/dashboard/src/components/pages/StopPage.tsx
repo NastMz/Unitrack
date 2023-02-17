@@ -5,7 +5,7 @@ import {useState} from "react";
 import {Stop} from "../../models/interfaces";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {deleteStop} from "../../api";
-import {removeStop} from "../../redux/actions";
+import {removeAllStops} from "../../redux/actions";
 import {StopForm} from "../ui";
 
 /**
@@ -51,22 +51,28 @@ export const StopPage = () => {
     const deleteStopMutate = useMutation({
         mutationFn: deleteStop,
         onSuccess: () => {
+            dispatch(removeAllStops());
             queryClient.invalidateQueries(['apiStops']);
             setLoading(false);
             setShowSuccess(true);
             setSuccessMessage('Paradero eliminado correctamente.');
         },
-        onError: (error) => {
+        onError: (error: any) => {
             setLoading(false);
             setShowError(true);
-            setErrorMessage('Ocurrío un error inesperado al eliminar el paradero.');
+            let errorMsg = error.response.data.message;
+
+            if (errorMsg) {
+                setErrorMessage(errorMsg);
+            } else {
+                setErrorMessage('Ha ocurrido un error inesperado.');
+            }
         }
     });
 
     const handleDeleteStop = (stop: Stop) => {
         setLoading(true);
         deleteStopMutate.mutate(stop.id);
-        dispatch(removeStop(stop.id));
     }
 
     const tableStops = stops.map((stop) => {

@@ -5,7 +5,7 @@ import {User} from "../../models/interfaces";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {deleteUser} from "../../api";
 import {useDispatch, useSelector} from "react-redux";
-import {removeUser} from "../../redux/actions";
+import {removeAllUsers} from "../../redux/actions";
 import {selectUsers} from "../../redux/selectors";
 
 /**
@@ -51,18 +51,27 @@ export const UserPage = () => {
     const deleteUserMutate = useMutation({
         mutationFn: deleteUser,
         onSuccess: () => {
+            dispatch(removeAllUsers());
             queryClient.invalidateQueries(['apiUsers']);
+            setLoading(false);
             setShowSuccess(true);
             setSuccessMessage('Usuario eliminado correctamente.');
         },
-        onError: (error) => {
+        onError: (error: any) => {
+            setLoading(false);
             setShowError(true);
-            setErrorMessage('Ha ocurrido un error al eliminar el usuario.');
+            let errorMsg = error.response.data.message;
+
+            if (errorMsg) {
+                setErrorMessage(errorMsg);
+            } else {
+                setErrorMessage('Ha ocurrido un error inesperado.');
+            }
         }
     });
 
     const handleDeleteUser = (user: User) => {
-        dispatch(removeUser(user.id));
+        setLoading(true);
         deleteUserMutate.mutate(user.id);
     }
 

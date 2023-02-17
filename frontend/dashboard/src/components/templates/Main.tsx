@@ -1,5 +1,10 @@
 import {AnimatePresence, motion} from "framer-motion";
 import {Sidebar} from "../ui";
+import {useQuery} from "@tanstack/react-query";
+import {getStops, getTimetables, getUsers} from "../../api";
+import {Stop, Timetable, User} from "../../models/interfaces";
+import {addStop, addTimetable, addUser} from "../../redux/actions";
+import {useDispatch} from "react-redux";
 
 /**
  * Interface for the Main component.
@@ -26,6 +31,39 @@ interface MainProps {
  */
 export const Main = (props: MainProps) => {
     document.title = props.title;
+
+
+    const dispatch = useDispatch();
+
+    useQuery({
+        queryKey: ['apiUsers'],
+        queryFn: getUsers,
+        onSuccess: (response) => {
+            response.data.users.forEach((user: User) => {
+                dispatch(addUser(user));
+            });
+        }
+    });
+
+    useQuery({
+        queryKey: ['apiTimetables'],
+        queryFn: getTimetables,
+        onSuccess: (response) => {
+            response.data.timetables.forEach((timetable: Timetable) => {
+                dispatch(addTimetable(timetable));
+            });
+        }
+    });
+
+    useQuery({
+        queryKey: ['apiStops'],
+        queryFn: getStops,
+        onSuccess: (response) => {
+            response.data.stops.forEach((stop: Stop) => {
+                dispatch(addStop(stop));
+            });
+        }
+    });
 
     return (
         <div className={"h-screen max-h-screen w-screen max-w-screen flex"}>

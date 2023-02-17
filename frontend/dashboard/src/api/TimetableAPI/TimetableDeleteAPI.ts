@@ -1,4 +1,5 @@
 import axios from "axios";
+import {logout, validateSession} from "../AuthAPI";
 
 const timetableCreateAPI = axios.create({
     baseURL: import.meta.env.VITE_API_TIMETABLE_DELETE_URL,
@@ -11,5 +12,20 @@ const timetableCreateAPI = axios.create({
  * @returns {Promise<any>} - The response.
  */
 export const deleteTimetable = async (id: number) => {
-    return await timetableCreateAPI.delete(`/timetable/delete/${id}`);
+
+    if (!validateSession()) {
+        logout();
+    }
+
+    let accessToken = sessionStorage.getItem("access_token")!;
+
+    try {
+        return await timetableCreateAPI.delete(`/timetable/delete/${id}`, {
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            }
+        });
+    } catch (e: any) {
+        return e.response;
+    }
 }

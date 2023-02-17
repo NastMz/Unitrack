@@ -75,7 +75,7 @@ export const TimetableForm: React.FC<TimetableFormProps> = ({
                                                             }: TimetableFormProps) => {
 
     // Handle click on cancel button
-    const handleClick = () => {
+    const closeForm = () => {
         formik.resetForm();
         onClose();
     };
@@ -89,7 +89,7 @@ export const TimetableForm: React.FC<TimetableFormProps> = ({
                 if (response.status === 200) {
                     setSuccessMessage('Horario creado exitosamente');
                     setShowSuccess(true);
-                    onClose();
+                    closeForm();
                 } else {
                     const errors = response.data.message;
                     setErrorMessage(errors);
@@ -112,7 +112,7 @@ export const TimetableForm: React.FC<TimetableFormProps> = ({
                 if (response.status === 200) {
                     setSuccessMessage('Horario actualizado exitosamente');
                     setShowSuccess(true);
-                    onClose();
+                    closeForm();
                 } else {
                     const errors = response.data.message;
                     setErrorMessage(errors);
@@ -121,10 +121,16 @@ export const TimetableForm: React.FC<TimetableFormProps> = ({
                 setLoading(false)
             });
         },
-        onError: (error) => {
-            setErrorMessage('Ocurrio un error inesperado');
-            setShowError(true);
+        onError: (error: any) => {
             setLoading(false);
+            setShowError(true);
+            let errorMsg = error.response.data.message;
+
+            if (errorMsg) {
+                setErrorMessage(errorMsg);
+            } else {
+                setErrorMessage('Ha ocurrido un error inesperado.');
+            }
         }
     });
 
@@ -219,7 +225,7 @@ export const TimetableForm: React.FC<TimetableFormProps> = ({
                             <button
                                 type={'button'}
                                 className="px-4 py-2 rounded-md text-sm font-semibold bg-slate-400 hover:bg-slate-500 focus:outline-none focus:bg-slate-500"
-                                onClick={handleClick}
+                                onClick={closeForm}
                             >
                                 Cancelar
                             </button>

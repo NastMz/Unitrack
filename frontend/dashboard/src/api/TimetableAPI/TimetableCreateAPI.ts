@@ -1,5 +1,6 @@
 import axios from "axios";
 import {NewTimetable} from "../../models/interfaces";
+import {logout, validateSession} from "../AuthAPI";
 
 const timetableCreateAPI = axios.create({
     baseURL: import.meta.env.VITE_API_TIMETABLE_CREATE_URL,
@@ -13,5 +14,20 @@ const timetableCreateAPI = axios.create({
  * @returns {Promise<string>} - The message of the response.
  */
 export const addTimetable = async (timetable: NewTimetable) => {
-    return await timetableCreateAPI.post('/timetable/add', timetable);
+
+    if (!validateSession()) {
+        logout();
+    }
+
+    let accessToken = sessionStorage.getItem("access_token")!;
+
+    try {
+        return await timetableCreateAPI.post('/timetable/add', timetable, {
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            }
+        });
+    } catch (e: any) {
+        return e.response;
+    }
 }
