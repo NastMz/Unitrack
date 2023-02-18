@@ -1,0 +1,137 @@
+# Dependencias docker.io, minikube y kubectl
+sudo apt-get install curl docker.io -y
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+
+# Iniciar minikube
+minikube start
+minikube addons enable ingress
+
+# config map db-init para la base de datos
+curl https://raw.githubusercontent.com/NastMz/Unitrack/master/backend/db/CREATE_DB.sql >> CREATE_DB.sql
+curl https://raw.githubusercontent.com/NastMz/Unitrack/master/backend/db/INSERT_DB.sql >> INSERT_DB.sql
+
+kubectl create configmap db-init --from-file CREATE_DB.sql --from-file INSERT_DB.sql
+
+# Crear carpeta en la raiz para los volumenes
+sudo mkdir /unitrack-db-volume
+
+# Manifiestos
+curl https://raw.githubusercontent.com/NastMz/Unitrack/master/manifestos/unitrack-backend-manifest.yaml >> unitrack-backend-manifest.yaml
+curl https://raw.githubusercontent.com/NastMz/Unitrack/master/manifestos/unitrack-frontend-manifest.yaml >> unitrack-frontend-manifest.yaml
+
+# Aplicar manifiestos (Se debe hacer todo lo anterior o no funcionara correctamente)
+kubectl apply -f unitrack-backend-manifest.yaml
+kubectl apply -f unitrack-frontend-manifest.yaml
+
+# Añadir hosts
+sudo nano /etc/hosts
+# Añadir las siguientes lineas
+192.168.49.2    unitrack.info
+192.168.49.2    db.unitrack.info
+192.168.49.2    unitrack.admin
+
+
+# Para eliminar svc y deployments
+kubectl delete svc db-service
+kubectl scale deployment db-deployment --replicas=0
+kubectl delete deployment db-deployment
+
+kubectl delete svc timetable-service
+kubectl scale deployment timetable-deployment --replicas=0
+kubectl delete deployment timetable-deployment
+
+kubectl delete svc stop-timetable-service
+kubectl scale deployment stop-timetable-deployment --replicas=0
+kubectl delete deployment stop-timetable-deployment
+
+kubectl delete svc stop-service
+kubectl scale deployment stop-deployment --replicas=0
+kubectl delete deployment stop-deployment
+
+kubectl delete svc user-create-service
+kubectl scale deployment user-create-deployment --replicas=0
+kubectl delete deployment user-create-deployment
+
+kubectl delete svc user-read-service
+kubectl scale deployment user-read-deployment --replicas=0
+kubectl delete deployment user-read-deployment
+
+kubectl delete svc user-update-service
+kubectl scale deployment user-update-deployment --replicas=0
+kubectl delete deployment user-update-deployment
+
+kubectl delete svc user-delete-service
+kubectl scale deployment user-delete-deployment --replicas=0
+kubectl delete deployment user-delete-deployment
+
+kubectl delete svc stop-create-service
+kubectl scale deployment stop-create-deployment --replicas=0
+kubectl delete deployment stop-create-deployment
+
+kubectl delete svc stop-read-service
+kubectl scale deployment stop-read-deployment --replicas=0
+kubectl delete deployment stop-read-deployment
+
+kubectl delete svc stop-update-service
+kubectl scale deployment stop-update-deployment --replicas=0
+kubectl delete deployment stop-update-deployment
+
+kubectl delete svc stop-delete-service
+kubectl scale deployment stop-delete-deployment --replicas=0
+kubectl delete deployment stop-delete-deployment
+
+kubectl delete svc timetable-create-service
+kubectl scale deployment timetable-create-deployment --replicas=0
+kubectl delete deployment timetable-create-deployment
+
+kubectl delete svc timetable-update-service
+kubectl scale deployment timetable-update-deployment --replicas=0
+kubectl delete deployment timetable-update-deployment
+
+kubectl delete svc timetable-delete-service
+kubectl scale deployment timetable-delete-deployment --replicas=0
+kubectl delete deployment timetable-delete-deployment
+
+kubectl delete svc login-service
+kubectl scale deployment login-deployment --replicas=0
+kubectl delete deployment login-deployment
+
+kubectl delete svc refresh-token-service
+kubectl scale deployment refresh-token-deployment --replicas=0
+kubectl delete deployment refresh-token-deployment
+
+kubectl delete svc web-app
+kubectl scale deployment web-deployment --replicas=0
+kubectl delete deployment web-deployment
+
+kubectl delete svc dashboard-app
+kubectl scale deployment dashboard-deployment --replicas=0
+kubectl delete deployment dashboard-deployment
+
+# Eliminar ingress
+kubectl delete ingress db-ingress
+kubectl delete ingress timetable-ingress
+kubectl delete ingress stop-timetable-ingress
+kubectl delete ingress stop-ingress
+kubectl delete ingress user-create-ingress
+kubectl delete ingress user-read-ingress
+kubectl delete ingress user-update-ingress
+kubectl delete ingress user-delete-ingress
+kubectl delete ingress stop-create-ingress
+kubectl delete ingress stop-read-ingress
+kubectl delete ingress stop-update-ingress
+kubectl delete ingress stop-delete-ingress
+kubectl delete ingress timetable-create-ingress
+kubectl delete ingress timetable-update-ingress
+kubectl delete ingress timetable-delete-ingress
+kubectl delete ingress login-ingress
+kubectl delete ingress refresh-token-ingress
+kubectl delete ingress web-ingress
+kubectl delete ingress dashboard-ingress
+
+# Eliminar db-init
+kubectl delete configmap db-init
