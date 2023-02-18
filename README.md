@@ -35,7 +35,7 @@ Este servicio permite a los usuarios ver la información completa de una lista d
 
 ## Iniciando los Proyectos
 
-Para iniciar los proyectos en este repositorio, deberá tener `Python` y `Node` instalados en su máquina si desea [ejecutarlos manualmente](#ejecución-individual) o puede usar el archivo `docker-compose.yml` incluido y [ejecutarlo directamente](#ejecución-con-docker-compose) sin necesidad de instalar nada.
+Para iniciar los proyectos en este repositorio, deberá tener `Python` y `Node` instalados en su máquina si desea [ejecutarlos manualmente](#ejecución-individual) o puede usar el archivo `docker-compose.yml` incluido y [ejecutarlo directamente](#ejecución-con-docker-compose) sin necesidad de instalar nada. También puede usar las imagenes ya creadas y [orquestarlas con minikube](#ejecución-con-kubernetes-minikube) en su máquina. 
 
 ### Ejecución individual
 
