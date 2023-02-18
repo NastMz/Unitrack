@@ -1,0 +1,139 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: web-deployment
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: web-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: web-deployment
+    spec: 
+      containers:
+        - name: web-container
+          image: docker.io/nastmz/unitrack-web-app:v1
+          env:
+            - name: VITE_API_TIMETABLE_URL
+              value: http://192.168.49.2:30000
+            - name: VITE_API_STOP_TIMETABLE_URL
+              value: http://192.168.49.2:30001
+            - name: VITE_API_STOP_URL
+              value: http://192.168.49.2:30002
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: dashboard-deployment
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: dashboard-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: dashboard-deployment
+    spec: 
+      containers:
+        - name: dashboard-container
+          image: docker.io/nastmz/unitrack-dashboard-app:v1
+          env:
+            - name: VITE_API_LOGIN_URL
+              value: http://192.168.49.2:30003
+            - name: VITE_API_REFRESH_TOKEN_URL
+              value: http://192.168.49.2:30004
+            - name: VITE_API_USER_CREATE_URL
+              value: http://192.168.49.2:30005
+            - name: VITE_API_USER_READ_URL
+              value: http://192.168.49.2:30006
+            - name: VITE_API_USER_UPDATE_URL
+              value: http://192.168.49.2:30007
+            - name: VITE_API_USER_DELETE_URL
+              value: http://192.168.49.2:30008
+            - name: VITE_API_TIMETABLE_CREATE_URL
+              value: http://192.168.49.2:30009
+            - name: VITE_API_TIMETABLE_READ_URL
+              value: http://192.168.49.2:30000
+            - name: VITE_API_TIMETABLE_UPDATE_URL
+              value: http://192.168.49.2:30010
+            - name: VITE_API_TIMETABLE_DELETE_URL
+              value: http://192.168.49.2:30011
+            - name: VITE_API_STOP_CREATE_URL
+              value: http://192.168.49.2:30012
+            - name: VITE_API_STOP_READ_URL
+              value: http://192.168.49.2:30013
+            - name: VITE_API_STOP_UPDATE_URL
+              value: http://192.168.49.2:30014
+            - name: VITE_API_STOP_DELETE_URL
+              value: http://192.168.49.2:30015
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: web-app
+spec: 
+  selector: 
+    app: web-deployment
+  ports: 
+    - protocol: TCP 
+      port: 3000
+      targetPort: 80 
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: dashboard-app
+spec: 
+  selector: 
+    app: dashboard-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8080
+      targetPort: 80 
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-app
+                port:
+                  number: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: unitrack.admin
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dashboard-app
+                port:
+                  number: 8080
