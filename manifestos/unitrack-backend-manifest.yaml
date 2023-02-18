@@ -1,0 +1,1006 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: db-deployment
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: db-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: db-deployment
+    spec: 
+      containers: 
+        - name: db-container 
+          image: docker.io/jhmateo23/unitrack-db:v1 
+          env:
+          - name: POSTGRES_DB
+            value: unitrackdb
+          - name: POSTGRES_USER
+            value: admin
+          - name: POSTGRES_PASSWORD
+            value: admin
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+          - name: data
+            mountPath: /var/lib/postgresql/data
+          - name: init
+            mountPath: /docker-entrypoint-initdb.d
+          readinessProbe:
+            exec:
+              command:
+              - pg_isready
+              - -U
+              - admin
+              - -d
+              - unitrackdb
+              - -h
+              - localhost
+              - -p
+              - "5432"
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+      volumes:
+      - name: data
+        hostPath:
+          path: /unitrack-db-volume
+      - name: init
+        configMap:
+          name: db-init
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: db-service
+spec: 
+  selector: 
+    app: db-deployment
+  ports: 
+    - protocol: TCP 
+      port: 5432
+      targetPort: 5432
+      nodePort: 30543
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: db-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: db.unitrack.info
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: db-service
+                port:
+                  number: 5432
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: timetable-deployment
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: timetable-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: timetable-deployment
+    spec: 
+      containers: 
+        - name: timetable-container 
+          image: docker.io/jhmateo23/unitrack-timetable-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: stop-timetable-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: stop-timetable-deployment 
+  template: 
+    metadata: 
+      labels: 
+        app: stop-timetable-deployment 
+    spec: 
+      containers:
+        - name: stop-timetable-container 
+          image: docker.io/jhmateo23/unitrack-stop-timetable-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: stop-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: stop-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: stop-deployment
+    spec: 
+      containers:
+        - name: stop-container 
+          image: docker.io/jhmateo23/unitrack-stop-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: login-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: login-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: login-deployment
+    spec: 
+      containers:
+        - name: login-container
+          image: docker.io/jhmateo23/unitrack-login-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: refresh-token-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: refresh-token-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: refresh-token-deployment
+    spec: 
+      containers:
+        - name: refresh-token-container
+          image: docker.io/jhmateo23/unitrack-refresh-token-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: user-create-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: user-create-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: user-create-deployment
+    spec: 
+      containers:
+        - name: user-create-container
+          image: docker.io/jhmateo23/unitrack-user-create-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: user-read-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: user-read-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: user-read-deployment
+    spec: 
+      containers:
+        - name: user-read-container
+          image: docker.io/jhmateo23/unitrack-user-read-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: user-update-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: user-update-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: user-update-deployment
+    spec: 
+      containers:
+        - name: user-update-container
+          image: docker.io/jhmateo23/unitrack-user-update-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: user-delete-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: user-delete-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: user-delete-deployment
+    spec: 
+      containers:
+        - name: user-delete-container
+          image: docker.io/jhmateo23/unitrack-user-delete-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: timetable-create-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: timetable-create-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: timetable-create-deployment
+    spec: 
+      containers:
+        - name: timetable-create-container
+          image: docker.io/jhmateo23/unitrack-timetable-create-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: timetable-update-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: timetable-update-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: timetable-update-deployment
+    spec: 
+      containers:
+        - name: timetable-update-container
+          image: docker.io/jhmateo23/unitrack-timetable-update-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: timetable-delete-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: timetable-delete-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: timetable-delete-deployment
+    spec: 
+      containers:
+        - name: timetable-delete-container
+          image: docker.io/jhmateo23/unitrack-timetable-delete-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: stop-create-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: stop-create-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: stop-create-deployment
+    spec: 
+      containers:
+        - name: stop-create-container
+          image: docker.io/jhmateo23/unitrack-stop-create-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: stop-read-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: stop-read-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: stop-read-deployment
+    spec: 
+      containers:
+        - name: stop-read-container
+          image: docker.io/jhmateo23/unitrack-stop-read-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: stop-update-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: stop-update-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: stop-update-deployment
+    spec: 
+      containers:
+        - name: stop-read-container
+          image: docker.io/jhmateo23/unitrack-stop-update-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: stop-delete-deployment 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: stop-delete-deployment
+  template: 
+    metadata: 
+      labels: 
+        app: stop-delete-deployment
+    spec: 
+      containers:
+        - name: stop-delete-container
+          image: docker.io/jhmateo23/unitrack-stop-delete-service:v1 
+          env:
+            - name: DATABASE_URI
+              value: postgresql://admin:admin@192.168.49.2:30543/unitrackdb
+            - name: JWT_SECRET_KEY
+              value: 8GvBesJUFFHE5FHTGnD8LjfWI9BK4A3l
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: timetable-service
+spec: 
+  selector: 
+    app: timetable-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8000
+      targetPort: 8000
+      nodePort: 30000
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: stop-timetable-service
+spec: 
+  selector: 
+    app: stop-timetable-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8001
+      targetPort: 8000
+      nodePort: 30001
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: stop-service
+spec: 
+  selector: 
+    app: stop-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8002
+      targetPort: 8000
+      nodePort: 30002
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: login-service
+spec: 
+  selector: 
+    app: login-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8003
+      targetPort: 8000
+      nodePort: 30003
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: refresh-token-service
+spec: 
+  selector: 
+    app: refresh-token-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8004
+      targetPort: 8000
+      nodePort: 30004
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: user-create-service
+spec: 
+  selector: 
+    app: user-create-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8005
+      targetPort: 8000
+      nodePort: 30005
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: user-read-service
+spec: 
+  selector: 
+    app: user-read-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8006
+      targetPort: 8000
+      nodePort: 30006
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: user-update-service
+spec: 
+  selector: 
+    app: user-update-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8007
+      targetPort: 8000
+      nodePort: 30007
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: user-delete-service
+spec: 
+  selector: 
+    app: user-delete-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8008
+      targetPort: 8000
+      nodePort: 30008
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: timetable-create-service
+spec: 
+  selector: 
+    app: timetable-create-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8009
+      targetPort: 8000
+      nodePort: 30009
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: timetable-update-service
+spec: 
+  selector: 
+    app: timetable-update-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8010
+      targetPort: 8000
+      nodePort: 30010
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: timetable-delete-service
+spec: 
+  selector: 
+    app: timetable-delete-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8011
+      targetPort: 8000
+      nodePort: 30011
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: stop-create-service
+spec: 
+  selector: 
+    app: stop-create-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8012
+      targetPort: 8000
+      nodePort: 30012
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: stop-read-service
+spec: 
+  selector: 
+    app: stop-read-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8013
+      targetPort: 8000
+      nodePort: 30013
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: stop-update-service
+spec: 
+  selector: 
+    app: stop-update-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8014
+      targetPort: 8000
+      nodePort: 30014
+  type: NodePort
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: stop-delete-service
+spec: 
+  selector: 
+    app: stop-delete-deployment
+  ports: 
+    - protocol: TCP 
+      port: 8015
+      targetPort: 8000
+      nodePort: 30015
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: timetable-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/timetable-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: timetable-service
+                port:
+                  number: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stop-timetable-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/stop-timetable-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: stop-timetable-service
+                port:
+                  number: 8001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stop-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/stop-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: stop-service
+                port:
+                  number: 8002
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: login-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/login-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: login-service
+                port:
+                  number: 8003
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: refresh-token-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/refresh-token-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: refresh-token-service
+                port:
+                  number: 8004
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: user-create-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/user-create-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: user-create-service
+                port:
+                  number: 8005
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: user-read-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/user-read-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: user-read-service
+                port:
+                  number: 8006
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: user-update-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/user-update-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: user-update-service
+                port:
+                  number: 8007
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: user-delete-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/user-delete-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: user-delete-service
+                port:
+                  number: 8008
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: timetable-create-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/timetable-create-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: timetable-create-service
+                port:
+                  number: 8009
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: timetable-update-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/timetable-update-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: timetable-update-service
+                port:
+                  number: 8010
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: timetable-delete-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/timetable-delete-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: timetable-delete-service
+                port:
+                  number: 8011
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stop-create-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/stop-create-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: stop-create-service
+                port:
+                  number: 8012
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stop-read-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/stop-read-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: stop-read-service
+                port:
+                  number: 8013
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stop-update-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/stop-update-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: stop-update-service
+                port:
+                  number: 8014
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stop-delete-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: unitrack.info
+      http:
+        paths:
+          - path: /api/stop-delete-service/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: stop-delete-service
+                port:
+                  number: 8015
