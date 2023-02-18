@@ -13,7 +13,10 @@ Este proyecto consiste de un backend en Flask que utiliza microservicios para br
         - [Ejecución del backend](#ejecución-del-backend)
         - [Ejecución del frontend](#ejecución-del-frontend)
     - [Ejecución con docker compose](#ejecución-con-docker-compose)
-
+    - [Ejecución con kubernetes (minikube)](#ejecución-con-kubernetes-minikube)
+        - [Página inicio](#página-inicio)
+        - [Panel administrador](#panel-administrador)
+    
 
 ## Timetable Service: Ver horarios de paraderos
 Este servcio permite obtener los horarios de los paraderos de autobuses. Para utilizarlo se debe enviar una solicitud GET a la URL correspondiente y la aplicación responderá con una lista de todos los horarios disponibles para los paraderos.
@@ -80,3 +83,50 @@ Navegue hasta el directorio del repositorio y ejecute este comando:
 ```
 
 Esto iniciará todos los proyectos inlcuida la base de datos.
+
+### Ejecución con kubernetes (minikube)
+
+Para la ejecución con kubernetes se tiene un archivo que facilitará este proceso, este archivo es `kubernetes_script` en el cual se tienen los comandos a ejecutar junto con un pequeño comentario. A continuación se explicará un poco mejor el contenido del script:
+
+Debe tener instalado `Docker`, `minikube`, `kubectl` y `curl` en su máquina, si no los tiene instalados, en el script mencionado anteriormente se encuentran los comandos para instalar estas dependencias.
+
+Luego, deberá iniciar `minikube` e `ingress` con los comandos:
+
+```markdown
+> minikube start
+> minikube addons enable ingress
+```
+
+Esto iniciará el cluster de minikube junto con ingress. Para continuar deberá seguir los pasos del script hasta ejecutar los manifiestos con los comandos:
+
+```markdown
+> kubectl apply -f unitrack-backend-manifest.yaml
+> kubectl apply -f unitrack-frontend-manifest.yaml
+```
+
+Esto hará el despliegue de todas las imagenes docker que se encuentran en [docker hub backend](https://hub.docker.com/u/jhmateo23) y en [docker hub frontend](https://hub.docker.com/u/nastmz), además creara los servicios con sus ingress correspondientes.
+
+Ahora, debe añadir los hosts con el comando:
+
+```markdown
+> sudo nano /etc/hosts
+```
+
+Y agregar las siguientes lineas:
+
+```markdown
+192.168.49.2    unitrack.info
+192.168.49.2    db.unitrack.info
+192.168.49.2    unitrack.admin
+```
+
+Con esto, tendrá todo listo para dirigirse a `unitrack.info` o `unitrack.admin` y probar la aplicación.
+
+#### Página inicio
+
+![image](https://user-images.githubusercontent.com/101680600/219845109-52e5fb6c-9362-4051-823a-2d1b50a11b88.png)
+
+
+#### Panel administrador
+
+![image](https://user-images.githubusercontent.com/101680600/219845167-14527746-ead4-44f7-98d0-0024481b1829.png)
