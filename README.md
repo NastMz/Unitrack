@@ -82,7 +82,7 @@ Navegue hasta el directorio del repositorio y ejecute este comando:
 > docker-compose up --build
 ```
 
-Esto iniciará todos los proyectos inlcuida la base de datos.
+Esto iniciará todos los proyectos inlcuida la base de datos. La aplicación se puede acceder en  `http://localhost:80` y el panel de administración en `http://localhost:8080`
 
 ### Ejecución con kubernetes (minikube)
 
