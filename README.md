@@ -86,9 +86,9 @@ Esto iniciará todos los proyectos inlcuida la base de datos.
 
 ### Ejecución con kubernetes (minikube)
 
-Para la ejecución con kubernetes se tiene un archivo que facilitará este proceso, este archivo es [kubernetes_script](https://github.com/NastMz/Unitrack/blob/master/kubernetes_script) en el cual se tienen los comandos a ejecutar junto con un pequeño comentario. A continuación se explicará un poco mejor el contenido del script:
+Para la ejecución con kubernetes se tiene un archivo que facilitará este proceso, este archivo es [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt) en el cual se tienen los comandos a ejecutar junto con un pequeño comentario para cada comando o conjunto de comandos. A continuación, se explicará un poco mejor el contenido del archivo:
 
-Debe tener instalado `Docker`, `minikube`, `kubectl` y `curl` en su máquina, si no los tiene instalados, en el [script](https://github.com/NastMz/Unitrack/blob/master/kubernetes_script) mencionado anteriormente se encuentran los comandos para instalar estas dependencias.
+Debe tener instalado `Docker`, `minikube`, `kubectl` y `curl` en su máquina, si no los tiene instalados, en el [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt) mencionado anteriormente se encuentran los comandos para instalar estas dependencias.
 
 Luego, deberá iniciar `minikube` e `ingress` con los comandos:
 
@@ -97,7 +97,7 @@ Luego, deberá iniciar `minikube` e `ingress` con los comandos:
 > minikube addons enable ingress
 ```
 
-Esto iniciará el cluster de minikube junto con ingress. Para continuar deberá seguir los pasos del [script](https://github.com/NastMz/Unitrack/blob/master/kubernetes_script) hasta ejecutar los manifiestos con los comandos:
+Esto iniciará el cluster de minikube junto con ingress. Para continuar deberá seguir los pasos del [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt) hasta ejecutar los manifiestos con los comandos:
 
 ```markdown
 > kubectl apply -f unitrack-backend-manifest.yaml
@@ -132,4 +132,4 @@ Al usar maquina virtual no fue posible usar el gps, pero en una maquina linux co
 
 ![image](https://user-images.githubusercontent.com/101680600/219845167-14527746-ead4-44f7-98d0-0024481b1829.png)
 
-Una vez terminado, puede borrar todos los deployments, services e ingress con los comandos que salen en el [script](https://github.com/NastMz/Unitrack/blob/master/kubernetes_script).
+Una vez terminado, puede borrar todos los deployments, services e ingress con los comandos que salen en el [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt).
