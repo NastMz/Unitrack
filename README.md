@@ -3,8 +3,6 @@
 
 Este proyecto consiste de un backend en Flask con una arquitectura de microservicios que sirve para brindar información sobre los horarios de los paraderos de autobuses, y un frontend en React para la interfaz de usuario. La aplicación cuenta con tres endpoints principales que brindan información sobre los paraderos de autobuses a la aplicación principal. También cuenta con múltiples endpoints extras para la administración del sistema.
 
-Puede ver una demo en vivo de la aplicación del cliente aquí: (http://dualdevs.tech)
-
 ## Tabla de Contenido
 
 - [Timetable Service: Ver horarios de paraderos](#timetable-service-ver-horarios-de-paraderos)
