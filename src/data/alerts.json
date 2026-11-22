@@ -1,0 +1,65 @@
+[
+  {
+    "id": "2026-11-desvio-terminal",
+    "kind": "desvio",
+    "title": "Desvío en la glorieta del Terminal",
+    "body": "Por obras de repavimentación, las rutas Terminal y Maracos toman la calzada lateral de la glorieta. Los paraderos Colanta y Glorieta del Terminal se atienden unos metros más adelante, junto a la señal provisional.",
+    "published": "2026-11-20",
+    "validFrom": "2026-11-21",
+    "validUntil": "2026-12-05",
+    "routes": ["terminal", "maracos"]
+  },
+  {
+    "id": "2026-11-parque-nocturna",
+    "kind": "horario",
+    "title": "La ruta Parque mantiene la salida de las 8:00 p. m.",
+    "body": "La última salida desde la sede Barcelona hacia el parque de los Estudiantes sigue a las 8:00 p. m. hasta el cierre del semestre, para quienes salen de clases nocturnas.",
+    "published": "2026-11-18",
+    "routes": ["parque"]
+  },
+  {
+    "id": "2026-11-intersemestral",
+    "kind": "horario",
+    "title": "Horario reducido en vacaciones intersemestrales",
+    "body": "Del 14 de diciembre al 22 de enero solo operan las salidas de 6:10 a. m. hacia la universidad y de 12:00 m. de regreso. Consulta los avisos de cada ruta antes de salir.",
+    "published": "2026-11-16",
+    "validFrom": "2026-12-14",
+    "validUntil": "2027-01-22",
+    "routes": []
+  },
+  {
+    "id": "2026-11-sikuani",
+    "kind": "novedad",
+    "title": "Paradero Parque Sikuani señalizado",
+    "body": "El paradero bajo el puente peatonal frente al parque Sikuani ya cuenta con señal vertical. La ruta Grama · Postobón se detiene allí en ambos sentidos.",
+    "published": "2026-11-12",
+    "routes": ["grama-postobon"]
+  },
+  {
+    "id": "2026-11-covisan-lluvias",
+    "kind": "desvio",
+    "title": "Covisán: paso alterno por lluvias",
+    "body": "Si el caño en Ciudad Salitre se desborda, la ruta Covisán continúa por la vía principal y omite el paradero Ciudad Salitre. El conductor avisará a bordo.",
+    "published": "2026-11-05",
+    "validUntil": "2026-11-30",
+    "routes": ["covisan"]
+  },
+  {
+    "id": "2026-10-jornada",
+    "kind": "suspension",
+    "title": "Sin servicio el sábado 31 de octubre",
+    "body": "Por la jornada institucional de puertas abiertas no hubo recorridos el sábado 31 de octubre. El servicio se reanudó el lunes con normalidad.",
+    "published": "2026-10-27",
+    "validFrom": "2026-10-31",
+    "validUntil": "2026-10-31",
+    "routes": []
+  },
+  {
+    "id": "2026-10-carne",
+    "kind": "novedad",
+    "title": "Ten a mano el carné estudiantil",
+    "body": "En todas las rutas el conductor puede pedir el carné vigente al abordar. Los visitantes deben registrarse en la portería de la sede Barcelona.",
+    "published": "2026-10-15",
+    "routes": []
+  }
+]

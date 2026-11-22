@@ -1,0 +1,862 @@
+{
+  "stops": [
+    {
+      "id": "bloque-de-apartamentos-la-madrid",
+      "name": "Bloque de apartamentos La Madrid",
+      "description": "En la esquina de la entrada a La Madrid, etapa 3",
+      "lat": 4.0593938,
+      "lon": -73.6700653
+    },
+    {
+      "id": "supermercado-marketing",
+      "name": "Supermercado Marketing",
+      "description": "Frente al supermercado",
+      "lat": 4.064833,
+      "lon": -73.671318
+    },
+    {
+      "id": "salida-los-chopos",
+      "name": "Salida Los Chopos",
+      "description": "Frente a la ferretería Las Palmas, en diagonal a Los Chopos",
+      "lat": 4.073257,
+      "lon": -73.669342
+    },
+    {
+      "id": "cajero-congente",
+      "name": "Cajero Congente",
+      "description": "Frente al cajero de Congente",
+      "lat": 4.079063,
+      "lon": -73.669262
+    },
+    {
+      "id": "semaforo-consuerte",
+      "name": "Semáforo Consuerte",
+      "description": "En diagonal al templo católico, en el semáforo de Consuerte",
+      "lat": 4.0826917,
+      "lon": -73.6692422
+    },
+    {
+      "id": "bomba-texaco-porfia",
+      "name": "Bomba Texaco Porfía",
+      "description": "Esquina de la bomba de gasolina, en la entrada a Porfía",
+      "lat": 4.088458,
+      "lon": -73.670179
+    },
+    {
+      "id": "segunda-entrada-saman",
+      "name": "Segunda entrada Samán",
+      "description": "Bajo el puente peatonal de la segunda entrada al Samán",
+      "lat": 4.091312,
+      "lon": -73.666702
+    },
+    {
+      "id": "semaforo-de-viva",
+      "name": "Semáforo de Viva",
+      "description": "Frente al conjunto, junto al semáforo",
+      "lat": 4.12537,
+      "lon": -73.636071
+    },
+    {
+      "id": "boutique-revival",
+      "name": "Boutique Revival",
+      "description": "Frente a la boutique",
+      "lat": 4.124263,
+      "lon": -73.63455
+    },
+    {
+      "id": "casa-jerez-inmobiliaria",
+      "name": "Casa Jeréz Inmobiliaria",
+      "description": "En la esquina después del parque con la cancha",
+      "lat": 4.123136,
+      "lon": -73.6321427
+    },
+    {
+      "id": "calle-33-con-45",
+      "name": "Calle 33 con 45",
+      "description": "En la papelería, al lado de una tienda esquinera",
+      "lat": 4.1228957,
+      "lon": -73.6296829
+    },
+    {
+      "id": "panaderia-la-cosmopolita",
+      "name": "Panadería La Cosmopolita",
+      "description": "Panadería esquinera",
+      "lat": 4.1191422,
+      "lon": -73.6284305
+    },
+    {
+      "id": "carrera-28f-esquina",
+      "name": "Carrera 28F esquina",
+      "description": "Casa esquinera con un poste de luz",
+      "lat": 4.1198703,
+      "lon": -73.6257133
+    },
+    {
+      "id": "frente-a-llanocentro",
+      "name": "Frente a Llanocentro",
+      "description": "Bajo el puente peatonal frente a Llanocentro",
+      "lat": 4.1331923,
+      "lon": -73.6366531
+    },
+    {
+      "id": "mazorcas-kikolo",
+      "name": "Mazorcas Kikolo",
+      "description": "Frente al negocio de comidas rápidas",
+      "lat": 4.1333947,
+      "lon": -73.6353101
+    },
+    {
+      "id": "paradero-dominos",
+      "name": "Paradero Dóminos",
+      "description": "Al lado del parqueadero, antes del semáforo nuevo",
+      "lat": 4.1324333,
+      "lon": -73.6324242
+    },
+    {
+      "id": "drogueria-la-rebaja",
+      "name": "Droguería La Rebaja",
+      "description": "Droguería antes de llegar a Sipote",
+      "lat": 4.1314713,
+      "lon": -73.6295618
+    },
+    {
+      "id": "cuatro-parques",
+      "name": "Cuatro Parques",
+      "description": "En el paradero de busetas del parque",
+      "lat": 4.158367,
+      "lon": -73.640998
+    },
+    {
+      "id": "picadas-y-algo-mas",
+      "name": "Picadas y algo más",
+      "description": "En la esquina del restaurante",
+      "lat": 4.157906,
+      "lon": -73.637702
+    },
+    {
+      "id": "frente-a-la-bomba-texaco",
+      "name": "Frente a la bomba Texaco",
+      "description": "Frente a la bomba Texaco de La Grama",
+      "lat": 4.156651,
+      "lon": -73.632235
+    },
+    {
+      "id": "drogueria-la-providencia",
+      "name": "Droguería La Providencia",
+      "description": "En la esquina de la droguería",
+      "lat": 4.151178,
+      "lon": -73.628527
+    },
+    {
+      "id": "yamaha-jordan",
+      "name": "Yamaha Jordán",
+      "description": "Antes del semáforo, en el almacén de motos",
+      "lat": 4.148175,
+      "lon": -73.624406
+    },
+    {
+      "id": "paradero-cofrem",
+      "name": "Paradero COFREM",
+      "description": "Donde paran las busetas",
+      "lat": 4.147615,
+      "lon": -73.620722
+    },
+    {
+      "id": "fresilandia",
+      "name": "Fresilandia",
+      "description": "Unas casas antes de Fresilandia, junto al árbol con una silla",
+      "lat": 4.1416635,
+      "lon": -73.6210014
+    },
+    {
+      "id": "parque-sikuani",
+      "name": "Parque Sikuani",
+      "description": "Bajo el puente peatonal frente al parque Sikuani",
+      "lat": 4.1369872,
+      "lon": -73.6218195
+    },
+    {
+      "id": "paradero-cantarrana",
+      "name": "Paradero Cantarrana",
+      "description": "Donde paran las busetas",
+      "lat": 4.1345282,
+      "lon": -73.6230187
+    },
+    {
+      "id": "hato-grande",
+      "name": "Hato Grande",
+      "description": "En diagonal a Hato Grande",
+      "lat": 4.1470082,
+      "lon": -73.6168287
+    },
+    {
+      "id": "frente-a-olimpica",
+      "name": "Frente a Olímpica",
+      "description": "Puesto de salud frente al supermercado",
+      "lat": 4.1461767,
+      "lon": -73.6112503
+    },
+    {
+      "id": "semaforo-manantial",
+      "name": "Semáforo Manantial",
+      "description": "Semáforo frente al CDA",
+      "lat": 4.1453019,
+      "lon": -73.6066442
+    },
+    {
+      "id": "semaforo-de-la-morgue",
+      "name": "Semáforo de la Morgue",
+      "description": "Semáforo antes de girar a la derecha hacia Medicina Legal",
+      "lat": 4.1388252,
+      "lon": -73.6029798
+    },
+    {
+      "id": "la-cummins",
+      "name": "La Cummins",
+      "description": "Junto al negocio La Cummins y los puestos de aire para llantas",
+      "lat": 4.1352913,
+      "lon": -73.6042122
+    },
+    {
+      "id": "colanta",
+      "name": "Colanta",
+      "description": "Antes de la bomba Terpel, en diagonal a la bomba del terminal",
+      "lat": 4.1306709,
+      "lon": -73.6058219
+    },
+    {
+      "id": "llanabastos",
+      "name": "Llanabastos",
+      "description": "Semáforo una cuadra antes de Llanabastos, donde se entra a los barrios",
+      "lat": 4.1254451,
+      "lon": -73.6098398
+    },
+    {
+      "id": "semaforo-pinilla",
+      "name": "Semáforo Pinilla",
+      "description": "Primer semáforo bajando del CAI, entrada al Pinilla",
+      "lat": 4.1375399,
+      "lon": -73.5892802
+    },
+    {
+      "id": "bomba-terpel-covisan",
+      "name": "Bomba Terpel Covisán",
+      "description": "Frente a la bomba Terpel, por donde bajan los carros",
+      "lat": 4.1371736,
+      "lon": -73.5863872
+    },
+    {
+      "id": "ciudad-salitre",
+      "name": "Ciudad Salitre",
+      "description": "Entrada al barrio Ciudad Salitre",
+      "lat": 4.1375301,
+      "lon": -73.5808545
+    },
+    {
+      "id": "apartamentos-amarilo-catama",
+      "name": "Apartamentos Amarilo Catama",
+      "description": "En la entrada a los apartamentos Amarilo de Catama",
+      "lat": 4.1358266,
+      "lon": -73.5731425
+    },
+    {
+      "id": "el-campanario",
+      "name": "El Campanario",
+      "description": "Esquina girando a la derecha en El Campanario",
+      "lat": 4.1332609,
+      "lon": -73.5653911
+    },
+    {
+      "id": "entrada-san-antonio",
+      "name": "Entrada San Antonio",
+      "description": "Esquina de entrada al barrio San Antonio",
+      "lat": 4.1281839,
+      "lon": -73.569041
+    },
+    {
+      "id": "panaderia-kirpan",
+      "name": "Panadería Kirpan",
+      "description": "Frente a la panadería Kirpan, en Kirpas",
+      "lat": 4.1179943,
+      "lon": -73.5854076
+    },
+    {
+      "id": "pan-rolo",
+      "name": "Pan Rolo",
+      "description": "Barrio Villamelida, frente a la panadería Pan Rolo",
+      "lat": 4.1163216,
+      "lon": -73.5972501
+    },
+    {
+      "id": "bomba-los-maracos",
+      "name": "Bomba Los Maracos",
+      "description": "En la bomba Texaco, al lado de la cancha sintética",
+      "lat": 4.135574,
+      "lon": -73.6181454
+    },
+    {
+      "id": "semaforo-del-lavadero",
+      "name": "Semáforo del lavadero",
+      "description": "En el semáforo frente al lavadero esquinero",
+      "lat": 4.1340915,
+      "lon": -73.6132462
+    },
+    {
+      "id": "parque-mi-llanura",
+      "name": "Parque Mi Llanura",
+      "description": "En el semáforo del parque, junto al reductor de velocidad",
+      "lat": 4.1326294,
+      "lon": -73.608517
+    },
+    {
+      "id": "glorieta-del-terminal",
+      "name": "Glorieta del Terminal",
+      "description": "Al salir de la glorieta, bajando por la avenida",
+      "lat": 4.1303038,
+      "lon": -73.601359
+    },
+    {
+      "id": "pinilla-alto",
+      "name": "Pinilla Alto",
+      "description": "Esquina del Pinilla, conexión con la ruta Covisán",
+      "lat": 4.1296156,
+      "lon": -73.5894141
+    },
+    {
+      "id": "la-rochela",
+      "name": "La Rochela",
+      "description": "Salida del barrio La Rochela a la avenida",
+      "lat": 4.1044181,
+      "lon": -73.6568555
+    },
+    {
+      "id": "bomba-terpel-playa-rica",
+      "name": "Bomba Terpel Playa Rica",
+      "description": "Frente a la bomba Terpel",
+      "lat": 4.1072854,
+      "lon": -73.6557697
+    },
+    {
+      "id": "bahia-serramonte",
+      "name": "Bahía Serramonte",
+      "description": "Frente a la bomba Primax de Serramonte",
+      "lat": 4.1155424,
+      "lon": -73.6490235
+    },
+    {
+      "id": "conjunto-cimarron",
+      "name": "Conjunto Cimarrón",
+      "description": "En la esquina del conjunto Cimarrón",
+      "lat": 4.1097822,
+      "lon": -73.6329908
+    },
+    {
+      "id": "parque-de-los-estudiantes",
+      "name": "Parque de los Estudiantes",
+      "description": "En diagonal al parque de los Estudiantes",
+      "lat": 4.1459132,
+      "lon": -73.6366358
+    },
+    {
+      "id": "unicentro",
+      "name": "Unicentro",
+      "description": "Paradero de busetas de Unicentro, vía a Puerto López",
+      "lat": 4.1432595,
+      "lon": -73.6334785
+    },
+    {
+      "id": "tecniguayas",
+      "name": "Tecniguayas",
+      "description": "En diagonal al colegio Normal, en la esquina del local Tecniguayas",
+      "lat": 4.138734,
+      "lon": -73.6300699
+    },
+    {
+      "id": "colegio-industrial",
+      "name": "Colegio Industrial",
+      "description": "Acera frente al colegio Industrial, junto al poste señalizado",
+      "lat": 4.1352434,
+      "lon": -73.6273911
+    },
+    {
+      "id": "makro",
+      "name": "Makro",
+      "description": "Paradero de busetas de Makro",
+      "lat": 4.1284916,
+      "lon": -73.6222394
+    },
+    {
+      "id": "alborada",
+      "name": "Alborada",
+      "description": "Paradero de busetas al lado del concesionario",
+      "lat": 4.1246844,
+      "lon": -73.619346
+    },
+    {
+      "id": "cooperativa",
+      "name": "Cooperativa",
+      "description": "Bajo el puente peatonal de la Cooperativa",
+      "lat": 4.1156645,
+      "lon": -73.6095403
+    },
+    {
+      "id": "bomba-primax-del-ocoa",
+      "name": "Bomba Primax del Ocoa",
+      "description": "Después de cruzar el río Ocoa, a mitad de la bomba",
+      "lat": 4.1108026,
+      "lon": -73.6035419
+    },
+    {
+      "id": "unillanos",
+      "name": "Unillanos · Sede Barcelona",
+      "description": "Frente a la entrada del parqueadero de la sede Barcelona",
+      "lat": 4.0752029,
+      "lon": -73.5855988
+    }
+  ],
+  "routes": [
+    {
+      "id": "porfia",
+      "code": "POR",
+      "name": "Porfía",
+      "color": "#C2412B",
+      "inbound": {
+        "stops": [
+          "bloque-de-apartamentos-la-madrid",
+          "supermercado-marketing",
+          "salida-los-chopos",
+          "cajero-congente",
+          "semaforo-consuerte",
+          "bomba-texaco-porfia",
+          "segunda-entrada-saman",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "07:20",
+          "08:20",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "segunda-entrada-saman",
+          "bomba-texaco-porfia",
+          "semaforo-consuerte",
+          "cajero-congente",
+          "salida-los-chopos",
+          "supermercado-marketing",
+          "bloque-de-apartamentos-la-madrid"
+        ],
+        "departures": [
+          "12:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "viva",
+      "code": "VIV",
+      "name": "Viva",
+      "color": "#E0A21B",
+      "inbound": {
+        "stops": [
+          "semaforo-de-viva",
+          "boutique-revival",
+          "casa-jerez-inmobiliaria",
+          "calle-33-con-45",
+          "panaderia-la-cosmopolita",
+          "carrera-28f-esquina",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "06:10",
+          "07:20",
+          "08:20",
+          "11:30",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "carrera-28f-esquina",
+          "panaderia-la-cosmopolita",
+          "calle-33-con-45",
+          "casa-jerez-inmobiliaria",
+          "boutique-revival",
+          "semaforo-de-viva"
+        ],
+        "departures": [
+          "11:00",
+          "12:00",
+          "16:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "villacentro",
+      "code": "VCE",
+      "name": "Villacentro",
+      "color": "#7B4B94",
+      "inbound": {
+        "stops": [
+          "frente-a-llanocentro",
+          "mazorcas-kikolo",
+          "paradero-dominos",
+          "drogueria-la-rebaja",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "06:10",
+          "07:20",
+          "08:20",
+          "11:30",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "drogueria-la-rebaja",
+          "paradero-dominos",
+          "mazorcas-kikolo",
+          "frente-a-llanocentro"
+        ],
+        "departures": [
+          "11:00",
+          "12:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "grama-postobon",
+      "code": "GRA",
+      "name": "Grama · Postobón",
+      "color": "#3F7A3A",
+      "inbound": {
+        "stops": [
+          "cuatro-parques",
+          "picadas-y-algo-mas",
+          "frente-a-la-bomba-texaco",
+          "drogueria-la-providencia",
+          "yamaha-jordan",
+          "paradero-cofrem",
+          "fresilandia",
+          "parque-sikuani",
+          "paradero-cantarrana",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "06:10",
+          "07:20",
+          "08:20",
+          "11:30",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "paradero-cantarrana",
+          "parque-sikuani",
+          "fresilandia",
+          "paradero-cofrem",
+          "yamaha-jordan",
+          "drogueria-la-providencia",
+          "frente-a-la-bomba-texaco",
+          "picadas-y-algo-mas",
+          "cuatro-parques"
+        ],
+        "departures": [
+          "11:00",
+          "12:00",
+          "16:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "terminal",
+      "code": "TER",
+      "name": "Terminal",
+      "color": "#2368A2",
+      "inbound": {
+        "stops": [
+          "yamaha-jordan",
+          "paradero-cofrem",
+          "hato-grande",
+          "frente-a-olimpica",
+          "semaforo-manantial",
+          "semaforo-de-la-morgue",
+          "la-cummins",
+          "colanta",
+          "llanabastos",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "06:10",
+          "07:20",
+          "08:20",
+          "11:30",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "llanabastos",
+          "colanta",
+          "la-cummins",
+          "semaforo-de-la-morgue",
+          "semaforo-manantial",
+          "frente-a-olimpica",
+          "hato-grande",
+          "paradero-cofrem",
+          "yamaha-jordan"
+        ],
+        "departures": [
+          "11:00",
+          "12:00",
+          "16:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "covisan",
+      "code": "COV",
+      "name": "Covisán",
+      "color": "#C4547F",
+      "inbound": {
+        "stops": [
+          "semaforo-pinilla",
+          "bomba-terpel-covisan",
+          "ciudad-salitre",
+          "apartamentos-amarilo-catama",
+          "el-campanario",
+          "entrada-san-antonio",
+          "panaderia-kirpan",
+          "pan-rolo",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "06:10",
+          "07:20",
+          "08:20",
+          "11:30",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "pan-rolo",
+          "panaderia-kirpan",
+          "entrada-san-antonio",
+          "el-campanario",
+          "apartamentos-amarilo-catama",
+          "ciudad-salitre",
+          "bomba-terpel-covisan",
+          "semaforo-pinilla"
+        ],
+        "departures": [
+          "11:00",
+          "12:00",
+          "16:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "maracos",
+      "code": "MAR",
+      "name": "Maracos",
+      "color": "#8C5A2B",
+      "inbound": {
+        "stops": [
+          "bomba-los-maracos",
+          "semaforo-del-lavadero",
+          "parque-mi-llanura",
+          "glorieta-del-terminal",
+          "pinilla-alto",
+          "panaderia-kirpan",
+          "pan-rolo",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "06:10",
+          "07:20",
+          "08:20",
+          "11:30",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "pan-rolo",
+          "panaderia-kirpan",
+          "pinilla-alto",
+          "glorieta-del-terminal",
+          "parque-mi-llanura",
+          "semaforo-del-lavadero",
+          "bomba-los-maracos"
+        ],
+        "departures": [
+          "11:00",
+          "12:00",
+          "16:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "montecarlo",
+      "code": "MON",
+      "name": "Montecarlo",
+      "color": "#14837B",
+      "inbound": {
+        "stops": [
+          "la-rochela",
+          "bomba-terpel-playa-rica",
+          "bahia-serramonte",
+          "conjunto-cimarron",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "06:10",
+          "07:20",
+          "08:20",
+          "11:30",
+          "13:30"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "conjunto-cimarron",
+          "bahia-serramonte",
+          "bomba-terpel-playa-rica",
+          "la-rochela"
+        ],
+        "departures": [
+          "11:00",
+          "12:00",
+          "16:00",
+          "17:00",
+          "18:00"
+        ]
+      }
+    },
+    {
+      "id": "parque",
+      "code": "PAR",
+      "name": "Parque",
+      "color": "#E2701E",
+      "inbound": {
+        "stops": [
+          "parque-de-los-estudiantes",
+          "unicentro",
+          "tecniguayas",
+          "colegio-industrial",
+          "makro",
+          "alborada",
+          "cooperativa",
+          "bomba-primax-del-ocoa",
+          "unillanos"
+        ],
+        "departures": [
+          "05:10",
+          "05:40",
+          "06:10",
+          "06:40",
+          "07:10",
+          "07:40",
+          "08:10",
+          "08:40",
+          "09:10",
+          "09:40",
+          "10:10",
+          "10:40",
+          "11:10",
+          "11:40",
+          "12:10",
+          "12:40",
+          "13:10",
+          "13:40",
+          "14:10",
+          "14:40",
+          "15:10",
+          "15:40",
+          "16:10",
+          "16:40",
+          "17:10",
+          "17:40",
+          "18:10",
+          "18:40"
+        ]
+      },
+      "outbound": {
+        "stops": [
+          "unillanos",
+          "bomba-primax-del-ocoa",
+          "cooperativa",
+          "alborada",
+          "makro",
+          "colegio-industrial",
+          "tecniguayas",
+          "unicentro",
+          "parque-de-los-estudiantes"
+        ],
+        "departures": [
+          "05:40",
+          "06:10",
+          "06:40",
+          "07:10",
+          "07:40",
+          "08:10",
+          "08:40",
+          "09:10",
+          "09:40",
+          "10:10",
+          "10:40",
+          "11:10",
+          "11:40",
+          "12:10",
+          "12:40",
+          "13:10",
+          "13:40",
+          "14:10",
+          "14:40",
+          "15:10",
+          "15:40",
+          "16:10",
+          "16:40",
+          "17:10",
+          "17:40",
+          "18:10",
+          "18:40",
+          "20:00"
+        ]
+      }
+    }
+  ]
+}
