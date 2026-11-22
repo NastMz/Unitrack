@@ -1,0 +1,40 @@
+{
+  "name": "unitrack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rutas universitarias de la Universidad de los Llanos en Villavicencio: mapa, horarios y avisos.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc -b",
+    "geodata": "node scripts/build-geodata.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "5.3.0",
+    "@fontsource/big-shoulders-display": "5.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "8.0.0",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.13",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "jsdom": "31.0.1",
+    "playwright-core": "1.65.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.8",
+    "vitest": "5.1.1"
+  },
+  "engines": {
+    "node": ">=22.22.0"
+  }
+}
