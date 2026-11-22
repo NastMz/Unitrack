@@ -1,0 +1,14 @@
+{
+  "name": "Unitrack · Rutas Unillanos",
+  "short_name": "Unitrack",
+  "description": "Rutas universitarias de la Universidad de los Llanos en Villavicencio.",
+  "lang": "es-CO",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3e9d4",
+  "theme_color": "#1c2036",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
