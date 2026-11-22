@@ -1,0 +1,12 @@
+name: unitrack
+
+services:
+  web:
+    build:
+      context: .
+      target: web
+    image: unitrack-web:1.0.0
+    container_name: unitrack-web
+    ports:
+      - "127.0.0.1:8180:80"
+    restart: unless-stopped
