@@ -1,135 +1,125 @@
 # Unitrack
-## Proyecto para el curso Sistemas Distribuidos - Universidad de los llanos
 
-Este proyecto consiste de un backend en Flask con una arquitectura de microservicios que sirve para brindar información sobre los horarios de los paraderos de autobuses, y un frontend en React para la interfaz de usuario. La aplicación cuenta con tres endpoints principales que brindan información sobre los paraderos de autobuses a la aplicación principal. También cuenta con múltiples endpoints extras para la administración del sistema.
+**Las rutas universitarias de la Universidad de los Llanos, en un cartel que se puede consultar.**
 
-## Tabla de Contenido
+Unitrack es una aplicación web móvil (PWA) para quienes viajan entre los barrios de Villavicencio y la sede Barcelona de la Universidad de los Llanos. Muestra las nueve rutas sobre un mapa propio de la ciudad, los paraderos de cada recorrido, las horas de salida, el próximo bus en cada paradero y los avisos de servicio. Funciona sin servidor, sin claves de API y sin servicios de mapas externos.
 
-- [Timetable Service: Ver horarios de paraderos](#timetable-service-ver-horarios-de-paraderos)
-- [Stop-Timetable Service: Ver ID de paraderos a cierta hora](#stop-timetable-service-ver-id-de-paraderos-a-cierta-hora)
-- [Stop Service: Ver información completa de paraderos](#stop-service-ver-información-completa-de-paraderos)
-- [Iniciando los proyectos](#iniciando-los-proyectos)
-    - [Ejecución individual](#ejecución-individual)
-        - [Ejecución del backend](#ejecución-del-backend)
-        - [Ejecución del frontend](#ejecución-del-frontend)
-    - [Ejecución con docker compose](#ejecución-con-docker-compose)
-    - [Ejecución con kubernetes (minikube)](#ejecución-con-kubernetes-minikube)
-        - [Página inicio](#página-inicio)
-        - [Panel administrador](#panel-administrador)
-    
+<p align="center">
+  <img src="docs/screenshots/mapa.png" alt="Mapa con las nueve rutas convergiendo en la sede Barcelona" width="270">
+  <img src="docs/screenshots/ruta.png" alt="Detalle de la ruta Grama · Postobón con sus salidas" width="270">
+  <img src="docs/screenshots/paradero.png" alt="Paradero Yamaha Jordán con los próximos buses" width="270">
+</p>
 
-## Timetable Service: Ver horarios de paraderos
-Este servcio permite obtener los horarios de los paraderos de autobuses. Para utilizarlo se debe enviar una solicitud GET a la URL correspondiente y la aplicación responderá con una lista de todos los horarios disponibles para los paraderos.
+## Qué ofrece
 
-## Stop-Timetable Service: Ver ID de paraderos a cierta hora
-Este servicio permite a los usuarios ver los ID de los paraderos que están programados para llegar a una hora específica. Para utilizarlo se debe enviar una solicitud GET a la URL correspondiente, incluyendo el ID de la hora para la cual desean ver los ID de los paraderos. La aplicación responderá con una lista de los ID de los paraderos que están programados para llegar a esa hora. `<URL>/<ID_HORA>`
+- **Mapa de las rutas.** Un mapa dibujado a partir de datos de OpenStreetMap, con los recorridos siguiendo las calles reales. Donde varias rutas comparten avenida se dibujan lado a lado, como en un diagrama de transporte. Se puede arrastrar, acercar con la rueda o con dos dedos, y tocar cualquier paradero.
+- **Detalle de ruta.** Los dos sentidos (hacia Unillanos y de regreso), las horas de salida y la secuencia de paraderos con la hora estimada de paso para la salida elegida. También muestra las conexiones con otras rutas.
+- **Próximo bus en un paradero.** Lista los buses de todas las rutas que pasan por el paradero, con la espera ("en 12 min", "mañana") y la hora estimada.
+- **Búsqueda.** Rutas por nombre o código (`COV`, `GRA`…) y paraderos por nombre o referencia, sin importar tildes.
+- **Paradero más cercano.** Con permiso de ubicación, propone los tres paraderos más próximos.
+- **Avisos por ruta.** Desvíos, cambios de horario y suspensiones con su vigencia. Se pueden marcar como leídos y filtrar por las rutas que sigues.
+- **Funciona sin conexión.** Después de la primera visita, la app queda en caché y se puede instalar en el teléfono.
 
-## Stop Service: Ver información completa de paraderos
-Este servicio permite a los usuarios ver la información completa de una lista de paraderos, incluyendo su ID, nombre, descripción, imagen y ubicación. Para utilizarlo se debe enviar una solicitud POST a la URL correspondiente, incluyendo una lista de los ID de los paraderos que desean ver. La aplicación responderá con la información completa de los paraderos correspondientes.
+<p align="center">
+  <img src="docs/screenshots/ruta-recorrido.png" alt="Recorrido de la ruta con horas estimadas por paradero" width="270">
+  <img src="docs/screenshots/avisos.png" alt="Avisos del servicio" width="270">
+  <img src="docs/screenshots/rutas.png" alt="Listado de las nueve rutas" width="270">
+</p>
 
-```
-{
-  "stops": [1, 2, 3, ...]
-}
-```
+<p align="center">
+  <img src="docs/screenshots/escritorio.png" alt="Vista de escritorio con la ruta Terminal" width="820">
+</p>
 
-## Iniciando los Proyectos
+## Cómo ejecutarla
 
-Para iniciar los proyectos en este repositorio, deberá tener `Python` y `Node` instalados en su máquina si desea [ejecutarlos manualmente](#ejecución-individual) o puede usar el archivo `docker-compose.yml` incluido y [ejecutarlo directamente](#ejecución-con-docker-compose) sin necesidad de instalar nada. También puede usar las imagenes ya creadas y [orquestarlas con minikube](#ejecución-con-kubernetes-minikube) en su máquina. 
+Requisitos: Docker con Compose.
 
-### Ejecución individual
-
-Para ejecutar manualmente los proyectos, debes crear la base de datos en `PostgreSQL` (se incluyen los scripts en el repositorio).
-
-#### Ejecución del backend
-
-Primero deberá instalar las dependencias para cada proyecto ejecutando `pip install -r requirements.txt` en el directorio raíz de cada proyecto. 
-
-Además debe crear un archivo `.env` con las variables que estan en `.env.example` para cada uno.
-
-Para iniciar cualquier proyecto, navegue hasta el directorio del mismo y ejecute el siguiente comando:
-
-```markdown
-> cd <DIRECTORIO_PROYECTO>
-> python run.py
+```bash
+docker compose up --build
 ```
 
-*Recuerde que cada servicio esta configurado para correr sobre el puerto `8000` en local, por lo que debera editar el archivo `run.py` para usar los puertos que desee.
+Abre <http://localhost:8180>. Para detenerla y borrar lo creado:
 
-#### Ejecución del frontend
-
-Primero deberá instalar las dependencias del proyecto ejecutando `npm install` en el directorio raíz del proyecto frontend.
-
-Además debe crear un archivo `.env` con las variables que estan en `.env.example`.
-
-Para iniciar el proyecto frontend, vaya al directorio del frontend y ejecute el siguiente comando:
-
-```markdown
-> cd <DIRECTORIO_FRONTEND>
-> npm run dev
+```bash
+docker compose down -v --rmi all
 ```
 
-Esto iniciará el servidor de desarrollo para el proyecto frontend, y puede ver la aplicación en su navegador web en `http://localhost:3000`.
+### Desarrollo local
 
-### Ejecución con docker compose
+Requisitos: Node.js 24 (o 22.22 o superior).
 
-Debe tener instalado `Docker` y `docker compose` en su máquina.
-
-Navegue hasta el directorio del repositorio y ejecute este comando:
-
-```markdown
-> cd <DIRECTORIO_REPOSITORIO>
-> docker-compose up --build
+```bash
+npm ci
+npm run dev        # http://localhost:8181
+npm run build      # compilación de producción en dist/
+npm run preview    # sirve dist/ en http://localhost:8182
 ```
 
-Esto iniciará todos los proyectos inlcuida la base de datos. La aplicación se puede acceder en  `http://localhost:80` y el panel de administración en `http://localhost:8080`
+Para una demostración con hora fija, añade `?ahora=AAAA-MM-DDTHH:MM` (hora de Villavicencio) a la URL, por ejemplo `http://localhost:8180/?ahora=2026-11-23T06:20#/paradero/yamaha-jordan`.
 
-### Ejecución con kubernetes (minikube)
+## Pruebas
 
-Para la ejecución con kubernetes se tiene un archivo que facilitará este proceso, este archivo es [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt) en el cual se tienen los comandos a ejecutar junto con un pequeño comentario para cada comando o conjunto de comandos. A continuación, se explicará un poco mejor el contenido del archivo:
-
-Debe tener instalado `Docker`, `minikube`, `kubectl` y `curl` en su máquina, si no los tiene instalados, en el [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt) mencionado anteriormente se encuentran los comandos para instalar estas dependencias.
-
-Luego, deberá iniciar `minikube` e `ingress` con los comandos:
-
-```markdown
-> minikube start
-> minikube addons enable ingress
+```bash
+npm test
+# o dentro de Docker:
+docker build --target test .
 ```
 
-Esto iniciará el cluster de minikube junto con ingress. Para continuar deberá seguir los pasos del [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt) hasta ejecutar los manifiestos con los comandos:
+Las pruebas (Vitest y Testing Library) cubren:
 
-```markdown
-> kubectl apply -f unitrack-backend-manifest.yaml
-> kubectl apply -f unitrack-frontend-manifest.yaml
+- el cálculo de la próxima salida: hora local de Villavicencio, días sin servicio, paso al día siguiente y paradas finales;
+- la integridad de los datos: paraderos y rutas referenciados, horarios ordenados, recorridos que empiezan o terminan en la sede, geometrías que coinciden con los paraderos y avisos válidos;
+- la búsqueda sin tildes y su orden de resultados;
+- la proyección del mapa, la simplificación y el desplazamiento de líneas, la cámara (encuadre, zoom, arrastre, límites) y la ubicación de etiquetas;
+- los componentes: tablero de salidas, búsqueda, detalle de ruta y de paradero, avisos, rutas seguidas y el mapa (toque frente a arrastre, zoom).
+
+Las capturas de este README se generan desde la app en ejecución con `node scripts/screenshots.mjs` (usa el Chrome instalado en el equipo).
+
+## Cómo está hecha
+
+```
+src/
+  domain/     modelo y reglas: red, horarios, búsqueda, avisos, cercanía
+  lib/geo.ts  proyección local en metros, distancias y geometría de líneas
+  map/        cámara del mapa y componente SVG
+  ui/         paneles: inicio, rutas, ruta, paradero, avisos, acerca de
+  app/        composición, navegación por hash, reloj y preferencias
+  data/       datos empaquetados (red, geometrías, mapa base, avisos)
+scripts/      descarga de OpenStreetMap, construcción del mapa base, capturas
 ```
 
-Esto hará el despliegue de todas las imagenes docker que se encuentran en [docker hub backend](https://hub.docker.com/u/jhmateo23) y en [docker hub frontend](https://hub.docker.com/u/nastmz), además creara los servicios con sus ingress correspondientes.
+- **Mapa propio.** `scripts/fetch-osm.mjs` descarga un extracto de OpenStreetMap del área de Villavicencio y `scripts/build-geodata.mjs` lo convierte en capas simplificadas en metros (vías, ríos, parques, la sede) y traza cada recorrido como el camino más corto por las calles entre paraderos consecutivos, prefiriendo avenidas. El resultado se empaqueta en `src/data/` y el navegador nunca consulta un servidor de mapas.
+- **Horarios.** Los datos originales solo traen las horas de salida desde el primer paradero de cada sentido. La hora en los demás paraderos se estima con la distancia por las calles a 20 km/h más 30 segundos por parada. Se asume servicio de lunes a sábado y la hora de Colombia (UTC−5, sin horario de verano).
+- **Sin backend.** Las rutas seguidas y los avisos leídos se guardan en el navegador. El contenedor es un nginx fijado a una versión, que sirve la compilación estática con cabeceras de seguridad.
 
-Ahora, debe añadir los hosts con el comando:
+## Datos
 
-```markdown
-> sudo nano /etc/hosts
-```
+- **Paraderos, recorridos y horarios:** los de los proyectos originales (scripts SQL de UniApp Unillanos y Unitrack). Durante la unificación se corrigieron dos errores de esos scripts: el regreso de la ruta Parque estaba registrado como ida, y la ruta Montecarlo apuntaba a los paraderos de Maracos. Los paraderos que compartían ubicación entre rutas se unificaron. Las coordenadas son las originales; ninguna se reubicó.
+- **Avisos:** son datos de demostración redactados para este proyecto, no comunicados reales.
+- **Fotografías:** el proyecto original usaba capturas de Google Street View para los paraderos. No se incluyen porque no tienen una licencia que permita redistribuirlas.
+- **Mapa base:** © OpenStreetMap contributors. Los datos de OpenStreetMap están disponibles bajo la [Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/). Los archivos derivados `src/data/basemap.json` y `src/data/shapes.json` se distribuyen bajo esa misma licencia.
 
-Y agregar las siguientes lineas:
+Unitrack es un proyecto académico independiente. Menciona a la Universidad de los Llanos solo para ubicar el servicio. No es una aplicación oficial de la universidad y no usa sus marcas.
 
-```markdown
-192.168.49.2    unitrack.info
-192.168.49.2    db.unitrack.info
-192.168.49.2    unitrack.admin
-```
+## Contexto académico
 
-Con esto, tendrá todo listo para dirigirse a `unitrack.info` o `unitrack.admin` y probar la aplicación.
+Unitrack reúne tres proyectos estudiantiles de la Universidad de los Llanos, en Villavicencio, que perseguían la misma idea: saber dónde y a qué hora pasa la ruta universitaria.
 
-#### Página inicio
+- **Unitrack** (Sistemas Distribuidos): horarios de paraderos servidos por microservicios Flask con PostgreSQL, dos interfaces en React y despliegue en Kubernetes.
+- **UniApp Unillanos**: aplicación Flutter con el mapa de rutas y paraderos y un muro de noticias de Facebook.
+- **UniRutas** (Software II): sistema de alertas sobre el estado de las rutas, construido sobre un mini-framework de persistencia propio (FlexCore).
 
-![image](https://user-images.githubusercontent.com/101680600/219845109-52e5fb6c-9362-4051-823a-2d1b50a11b88.png)
+Esta versión conserva el dominio de los tres (rutas, paraderos, horarios y avisos) en una sola aplicación autocontenida. El historial de git del repositorio guarda la implementación original de Unitrack.
 
-Al usar maquina virtual no fue posible usar el gps, pero en una maquina linux corriente no debe presentar problema.
+### Créditos
 
-#### Panel administrador
+Equipo original, según el historial y la documentación de los tres repositorios:
 
-![image](https://user-images.githubusercontent.com/101680600/219845167-14527746-ead4-44f7-98d0-0024481b1829.png)
+- Kevin Martinez ([NastMz](https://github.com/NastMz))
+- Joshep Mateo Granada Quinchia ([JhMateo](https://github.com/JhMateo))
+- [RAGNAROK1307](https://github.com/RAGNAROK1307)
+- [CamiloTejeiro12](https://github.com/CamiloTejeiro12)
 
-Una vez terminado, puede borrar todos los deployments, services e ingress con los comandos que salen en el [commands_kubernetes.txt](https://github.com/NastMz/Unitrack/blob/master/commands_kubernetes.txt).
+## Licencia
+
+Código bajo licencia [MIT](LICENSE). Datos del mapa base © OpenStreetMap contributors, bajo ODbL.
