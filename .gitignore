@@ -1,12 +1,21 @@
-*/venv
-*/*/venv
-*/*/.env
-*/*/*/.env
-*/*/*/*/.env
-*/*/.env.production
-*/*/volumes
-*/*/.idea
-*/*/dist
-*/*/node_modules
-/backend/admin-services/user-services/user-create-service/.env
-/.idea
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Tooling and OS noise
+.vite/
+.vitest/
+playwright-report/
+test-results/
+.idea/
+.vscode/
+*.log
+.DS_Store
+Thumbs.db
